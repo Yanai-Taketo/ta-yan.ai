@@ -833,7 +833,7 @@
         /* ===== レスポンシブ ===== */
         @media (max-width: 768px) {
             .sidebar {
-                width: 250px;
+                width: 200px;
             }
 
             .chat-messages {
@@ -842,6 +842,267 @@
 
             .skill-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .header {
+                padding: 10px 16px;
+            }
+
+            .title {
+                font-size: 14px;
+            }
+
+            .chat-header {
+                padding: 10px 16px;
+            }
+
+            .chat-header-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+
+            .chat-header-content h2 {
+                font-size: 14px;
+            }
+
+            .chat-header-content p {
+                font-size: 11px;
+            }
+
+            .message-group {
+                gap: 8px;
+            }
+
+            .message-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 13px;
+            }
+
+            .message-text {
+                font-size: 12px;
+                padding: 10px 12px;
+            }
+
+            .card-message {
+                padding: 12px;
+            }
+
+            .card-title {
+                font-size: 13px;
+            }
+
+            .card-content {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--gray-200);
+                padding: 0;
+                display: flex;
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                flex-wrap: nowrap;
+            }
+
+            .sidebar-search {
+                display: none;
+            }
+
+            .sidebar-section-title {
+                display: none;
+            }
+
+            .sidebar-list {
+                display: flex;
+                flex-direction: row;
+                gap: 0;
+                width: 100%;
+            }
+
+            .sidebar-item {
+                padding: 12px 12px;
+                margin: 0;
+                border-radius: 0;
+                flex-shrink: 0;
+                font-size: 12px;
+                white-space: nowrap;
+                border-bottom: 3px solid transparent;
+            }
+
+            .sidebar-item:hover {
+                background: transparent;
+                border-bottom-color: var(--primary-blue);
+            }
+
+            .sidebar-item.active {
+                background: transparent;
+                border-bottom-color: var(--primary-blue);
+            }
+
+            .sidebar-icon {
+                display: none;
+            }
+
+            .header {
+                padding: 8px 12px;
+            }
+
+            .logo {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+
+            .title {
+                font-size: 13px;
+            }
+
+            .chat-area {
+                width: 100%;
+            }
+
+            .chat-header {
+                padding: 8px 12px;
+                gap: 8px;
+            }
+
+            .chat-header-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+
+            .chat-header-content h2 {
+                font-size: 13px;
+                margin: 0;
+            }
+
+            .chat-header-content p {
+                font-size: 10px;
+                margin: 2px 0 0 0;
+            }
+
+            .chat-messages {
+                padding: 12px 12px;
+                gap: 12px;
+            }
+
+            .message-group {
+                gap: 6px;
+                margin-bottom: 4px;
+            }
+
+            .message-avatar {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+                border-radius: 4px;
+            }
+
+            .message-header {
+                gap: 6px;
+            }
+
+            .message-author {
+                font-size: 12px;
+            }
+
+            .message-time {
+                font-size: 10px;
+            }
+
+            .message-text {
+                font-size: 12px;
+                padding: 8px 10px;
+                border-radius: 6px;
+            }
+
+            .typing-indicator {
+                font-size: 12px;
+                padding: 8px 10px;
+                gap: 3px;
+            }
+
+            .typing-indicator-dot {
+                width: 5px;
+                height: 5px;
+            }
+
+            .card-message {
+                padding: 10px;
+                border-radius: 6px;
+            }
+
+            .card-title {
+                font-size: 12px;
+                margin-bottom: 6px;
+            }
+
+            .card-subtitle {
+                font-size: 11px;
+                margin-bottom: 8px;
+            }
+
+            .card-content {
+                font-size: 11px;
+                margin-bottom: 8px;
+            }
+
+            .card-tags {
+                gap: 4px;
+                margin-bottom: 8px;
+            }
+
+            .tag {
+                padding: 2px 8px;
+                font-size: 10px;
+            }
+
+            .card-link {
+                font-size: 12px;
+                gap: 4px;
+            }
+
+            .skill-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .skill-box {
+                padding: 10px;
+                border-radius: 6px;
+            }
+
+            .skill-category-title {
+                font-size: 11px;
+                margin-bottom: 6px;
+            }
+
+            .skill-item {
+                padding: 3px 0;
+                font-size: 12px;
+                gap: 4px;
+            }
+
+            .footer {
+                padding: 8px 12px;
+                font-size: 10px;
             }
         }
     </style>

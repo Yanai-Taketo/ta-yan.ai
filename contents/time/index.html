@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" content-language="ja">
+<html lang="ja">
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker
+        .register("sw.js")
+        .then(function (registration) {
+          console.log(
+            "Service Worker registration successful with scope: ",
+            registration.scope
+          );
+        })
+        .catch(function (err) {
+          console.log("Service Worker registration failed: ", err);
+        });
+    });
+  }
+</script>
+  <head>
+    <title>正確な現在時刻</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="このWebページは、NTPサーバーにアクセスして正確な時刻を取得し、定期的に時刻を更新して表示することで、コンピューターの時刻がずれていても正確な現在時刻を表示します。また、オフライン環境でも、ローカル時間を表示することで時刻を確認することができます。">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="ゐなや">
+    <style>
+      #info {
+        position: absolute;
+        top: 3%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 1vw; /* 画面幅の5%の大きさにする */
+      }
+      #time {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 5vw; /* 画面幅の5%の大きさにする */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="info"></div>
+    <div id="time"></div>
+    <script>
+      // NTPサーバーのURL
+      const ntpUrl = "https://worldtimeapi.org/api/ip";
+
+      // 情報を表示する要素
+      const infoElement = document.getElementById("info");
+      // 時刻を表示する要素
+      const timeElement = document.getElementById("time");
+
+      // 初期時刻を取得
+      let timestamp = 0;
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", ntpUrl);
+      xhr.onload = function () {
+        // レスポンスから正確な時刻を抽出
+        const responseJson = JSON.parse(xhr.responseText);
+        timestamp = responseJson.unixtime * 1000; // ミリ秒単位に変換
+
+        // 定期的に時刻を更新
+        setInterval(updateTime, 1000);
+      };
+      xhr.onerror = function (error) {
+        // ERNET_DISCONNECTEDエラーが発生した場合、ローカル時間を表示
+        const date = new Date();
+        timestamp = date.getTime();
+
+        // メッセージを表示
+        infoElement.textContent = `NTPサーバーに接続できませんでした。コンピューターの時刻を表示しています。`;
+        timeElement.textContent = `${date.toLocaleString()}`;
+
+        // 定期的に時刻を更新
+        setInterval(updateTime, 1000);
+      };
+      xhr.send();
+
+      // 時刻を更新する関数
+      function updateTime() {
+        // 現在の時刻を更新
+        timestamp += 1000;
+
+        // 時刻をページに表示
+        const date = new Date(timestamp);
+        timeElement.textContent = date.toLocaleString();
+      }
+    </script>
+  </body>
+</html>
