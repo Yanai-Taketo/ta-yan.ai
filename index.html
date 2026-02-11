@@ -319,6 +319,24 @@
             }
         }
 
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
         .message-group {
             display: flex;
             gap: 12px;
@@ -469,9 +487,15 @@
             width: fit-content;
             font-size: 13px;
             color: var(--gray-500);
+            opacity: 1;
             animation:
                 bubbleFadeIn 0.35s ease-out backwards,
                 typingPulse 1s ease-in-out infinite backwards;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .typing-indicator.fade-out {
+            opacity: 0;
         }
 
         .typing-indicator-dot {
@@ -518,9 +542,12 @@
             font-size: 13px;
             line-height: 1.5;
             word-wrap: break-word;
-            animation: 
-                bubbleFadeIn 0.35s ease-out backwards,
-                typeWriter 0.6s steps(50) ease-out backwards;
+            opacity: 0;
+            transition: opacity 0.35s ease-out;
+        }
+
+        .message-text.visible {
+            opacity: 1;
         }
 
         .message-group:nth-child(1) .message-text {
@@ -595,10 +622,12 @@
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 12px;
-            animation:
-                bubbleFadeIn 0.35s ease-out backwards,
-                typeWriter 0.7s steps(50) ease-out backwards;
-            transition: all 0.2s ease;
+            opacity: 0;
+            transition: opacity 0.35s ease-out;
+        }
+
+        .card-message.visible {
+            opacity: 1;
         }
 
         .card-message:hover {
@@ -1429,14 +1458,6 @@
                         const cardMessage = messageContent.querySelector('.card-message');
                         
                         if (messageText || cardMessage) {
-                            // メッセージを最初は非表示にする
-                            if (messageText) {
-                                messageText.style.display = 'none';
-                            }
-                            if (cardMessage) {
-                                cardMessage.style.display = 'none';
-                            }
-
                             // タイピング中インジケーターを作成
                             const typingDiv = document.createElement('div');
                             typingDiv.className = 'typing-indicator';
@@ -1452,18 +1473,18 @@
                             // タイピング中を短時間表示してからメッセージを表示
                             const typingDuration = 200 + (index * 120);
                             setTimeout(() => {
-                                // タイピング中を消す
-                                typingDiv.style.animation = 'none';
-                                typingDiv.style.opacity = '0';
-                                typingDiv.style.transition = 'opacity 0.3s ease';
-                                
-                                // メッセージを表示
-                                if (messageText) {
-                                    messageText.style.display = 'block';
-                                }
-                                if (cardMessage) {
-                                    cardMessage.style.display = 'block';
-                                }
+                                // タイピング中をフェードアウト開始
+                                typingDiv.classList.add('fade-out');
+
+                                // 少し遅延してからメッセージをフェードイン
+                                setTimeout(() => {
+                                    if (messageText) {
+                                        messageText.classList.add('visible');
+                                    }
+                                    if (cardMessage) {
+                                        cardMessage.classList.add('visible');
+                                    }
+                                }, 100);
 
                                 // タイピング中を削除
                                 setTimeout(() => {
