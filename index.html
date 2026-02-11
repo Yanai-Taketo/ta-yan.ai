@@ -1510,6 +1510,22 @@
                         // 古い処理情報をクリアする
                         pane.querySelectorAll('.message-group').forEach(group => {
                             delete group.dataset.typingProcessed;
+                            
+                            // タイピング中インジケーターを削除
+                            const typingIndicator = group.querySelector('.typing-indicator');
+                            if (typingIndicator) {
+                                typingIndicator.remove();
+                            }
+                            
+                            // メッセージ要素の表示状態をリセット
+                            const messageText = group.querySelector('.message-text');
+                            const cardMessage = group.querySelector('.card-message');
+                            if (messageText) {
+                                messageText.classList.remove('visible');
+                            }
+                            if (cardMessage) {
+                                cardMessage.classList.remove('visible');
+                            }
                         });
                     });
 
