@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YANAi Taketo - Portfolio</title>
+    <style>
+        /* ===== グローバルスタイル ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Microsoft Teams カラーパレット */
+            --primary-blue: #0078d4;
+            --primary-blue-hover: #106ebe;
+            --light-blue: #e7f3ff;
+            --white: #ffffff;
+            --gray-50: #f8f9fa;
+            --gray-100: #f3f3f3;
+            --gray-200: #e5e5e5;
+            --gray-300: #d1d1d1;
+            --gray-400: #a19f9d;
+            --gray-500: #605e5c;
+            --dark-gray: #323130;
+            --message-bg: #f0f0f0;
+
+            /* グラデーション */
+            --gradient-primary: linear-gradient(135deg, #0078d4 0%, #1687d9 100%);
+
+            /* シャドウ */
+            --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-2: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+            /* フォント */
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: var(--font-main);
+            background: var(--white);
+            color: var(--dark-gray);
+            overflow: hidden;
+        }
+
+        /* ===== メインレイアウト ===== */
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-1);
+            flex-shrink: 0;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* ===== サイドバー（会話リスト） ===== */
+        .sidebar {
+            width: 320px;
+            background: var(--white);
+            border-right: 1px solid var(--gray-200);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-search {
+            padding: 12px 16px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: 20px;
+            font-size: 13px;
+            background: var(--gray-50);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .search-box:focus {
+            background: var(--white);
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1);
+        }
+
+        .sidebar-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            padding: 8px 16px;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+        }
+
+        .sidebar-list {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            padding: 8px 12px;
+            margin: 0 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--gray-500);
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-item:hover {
+            background: var(--gray-100);
+            color: var(--dark-gray);
+        }
+
+        .sidebar-item.active {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .sidebar-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: var(--gray-100);
+            flex-shrink: 0;
+        }
+
+        .sidebar-item.active .sidebar-icon {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* ===== チャットエリア ===== */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--white);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .chat-header-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .chat-header-content h2 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin: 0;
+        }
+
+        .chat-header-content p {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin: 2px 0 0 0;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chat-pane {
+            display: none;
+        }
+
+        .chat-pane.active {
+            display: block;
+            animation: paneFadeIn 0.4s ease;
+        }
+
+        @keyframes paneFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes avatarPopIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bubbleFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes typeWriter {
+            from {
+                clip-path: inset(0 100% 0 0);
+            }
+            to {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        @keyframes cursorBlink {
+            0%, 49% {
+                border-right-color: var(--primary-blue);
+            }
+            50%, 100% {
+                border-right-color: transparent;
+            }
+        }
+
+        @keyframes typingPulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes typingDot {
+            0%, 20% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            50%, 100% {
+                opacity: 0.4;
+                transform: translateY(-2px);
+            }
+        }
+
+        .message-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+            animation: messageSlideIn 0.4s ease-out backwards;
+        }
+
+        .message-group:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .message-group:nth-child(2) {
+            animation-delay: 0.12s;
+        }
+
+        .message-group:nth-child(3) {
+            animation-delay: 0.24s;
+        }
+
+        .message-group:nth-child(4) {
+            animation-delay: 0.36s;
+        }
+
+        .message-group:nth-child(5) {
+            animation-delay: 0.48s;
+        }
+
+        .message-group:nth-child(n+6) {
+            opacity: 0;
+            animation: none;
+        }
+
+        .chat-pane.active .message-group:nth-child(n+6) {
+            opacity: 1;
+            animation: messageSlideIn 0.4s ease-out backwards;
+        }
+
+        .chat-pane.active .message-group:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .chat-pane.active .message-group:nth-child(7) {
+            animation-delay: 0.72s;
+        }
+
+        .chat-pane.active .message-group:nth-child(8) {
+            animation-delay: 0.84s;
+        }
+
+        .chat-pane.active .message-group:nth-child(9) {
+            animation-delay: 0.96s;
+        }
+
+        .chat-pane.active .message-group:nth-child(10) {
+            animation-delay: 1.08s;
+        }
+
+        .message-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+            animation: avatarPopIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) backwards;
+        }
+
+        .message-group:nth-child(1) .message-avatar {
+            animation-delay: 0.1s;
+        }
+
+        .message-group:nth-child(2) .message-avatar {
+            animation-delay: 0.22s;
+        }
+
+        .message-group:nth-child(3) .message-avatar {
+            animation-delay: 0.34s;
+        }
+
+        .message-group:nth-child(4) .message-avatar {
+            animation-delay: 0.46s;
+        }
+
+        .message-group:nth-child(5) .message-avatar {
+            animation-delay: 0.58s;
+        }
+
+        .chat-pane.active .message-group:nth-child(6) .message-avatar {
+            animation-delay: 0.7s;
+        }
+
+        .chat-pane.active .message-group:nth-child(7) .message-avatar {
+            animation-delay: 0.82s;
+        }
+
+        .chat-pane.active .message-group:nth-child(8) .message-avatar {
+            animation-delay: 0.94s;
+        }
+
+        .chat-pane.active .message-group:nth-child(9) .message-avatar {
+            animation-delay: 1.06s;
+        }
+
+        .chat-pane.active .message-group:nth-child(10) .message-avatar {
+            animation-delay: 1.18s;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .message-author {
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 13px;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: var(--gray-400);
+        }
+
+        .typing-indicator {
+            background: var(--message-bg);
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            width: fit-content;
+            font-size: 13px;
+            color: var(--gray-500);
+            animation:
+                bubbleFadeIn 0.35s ease-out backwards,
+                typingPulse 1s ease-in-out infinite backwards;
+        }
+
+        .typing-indicator-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            animation: typingDot 1.4s ease-in-out infinite;
+        }
+
+        .typing-indicator-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .message-group:nth-child(1) .typing-indicator {
+            animation-delay: 0.15s, 0.2s;
+        }
+
+        .message-group:nth-child(2) .typing-indicator {
+            animation-delay: 0.27s, 0.32s;
+        }
+
+        .message-group:nth-child(3) .typing-indicator {
+            animation-delay: 0.39s, 0.44s;
+        }
+
+        .message-group:nth-child(4) .typing-indicator {
+            animation-delay: 0.51s, 0.56s;
+        }
+
+        .message-group:nth-child(5) .typing-indicator {
+            animation-delay: 0.63s, 0.68s;
+        }
+
+        .message-text {
+            background: var(--message-bg);
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: var(--dark-gray);
+            font-size: 13px;
+            line-height: 1.5;
+            word-wrap: break-word;
+            animation: 
+                bubbleFadeIn 0.35s ease-out backwards,
+                typeWriter 0.6s steps(50) ease-out backwards;
+        }
+
+        .message-group:nth-child(1) .message-text {
+            animation-delay: 0.15s, 0.3s;
+        }
+
+        .message-group:nth-child(2) .message-text {
+            animation-delay: 0.27s, 0.42s;
+        }
+
+        .message-group:nth-child(3) .message-text {
+            animation-delay: 0.39s, 0.54s;
+        }
+
+        .message-group:nth-child(4) .message-text {
+            animation-delay: 0.51s, 0.66s;
+        }
+
+        .message-group:nth-child(5) .message-text {
+            animation-delay: 0.63s, 0.78s;
+        }
+
+        .chat-pane.active .message-group:nth-child(6) .message-text {
+            animation-delay: 0.75s, 0.9s;
+        }
+
+        .chat-pane.active .message-group:nth-child(7) .message-text {
+            animation-delay: 0.87s, 1.02s;
+        }
+
+        .chat-pane.active .message-group:nth-child(8) .message-text {
+            animation-delay: 0.99s, 1.14s;
+        }
+
+        .chat-pane.active .message-group:nth-child(9) .message-text {
+            animation-delay: 1.11s, 1.26s;
+        }
+
+        .chat-pane.active .message-group:nth-child(10) .message-text {
+            animation-delay: 1.23s, 1.38s;
+        }
+
+        .message-text a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .message-text a:hover {
+            text-decoration: underline;
+        }
+
+        .message-text h3 {
+            margin: 8px 0 4px 0;
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+
+        .message-text ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .message-text li {
+            margin: 4px 0;
+        }
+
+        /* ===== カード風メッセージ ===== */
+        .card-message {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            animation:
+                bubbleFadeIn 0.35s ease-out backwards,
+                typeWriter 0.7s steps(50) ease-out backwards;
+            transition: all 0.2s ease;
+        }
+
+        .card-message:hover {
+            box-shadow: 0 4px 12px rgba(0, 120, 212, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .message-group:nth-child(1) .card-message {
+            animation-delay: 0.15s, 0.3s;
+        }
+
+        .message-group:nth-child(2) .card-message {
+            animation-delay: 0.27s, 0.42s;
+        }
+
+        .message-group:nth-child(3) .card-message {
+            animation-delay: 0.39s, 0.54s;
+        }
+
+        .message-group:nth-child(4) .card-message {
+            animation-delay: 0.51s, 0.66s;
+        }
+
+        .message-group:nth-child(5) .card-message {
+            animation-delay: 0.63s, 0.78s;
+        }
+
+        .chat-pane.active .message-group:nth-child(6) .card-message {
+            animation-delay: 0.75s, 0.9s;
+        }
+
+        .chat-pane.active .message-group:nth-child(7) .card-message {
+            animation-delay: 0.87s, 1.02s;
+        }
+
+        .chat-pane.active .message-group:nth-child(8) .card-message {
+            animation-delay: 0.99s, 1.14s;
+        }
+
+        .chat-pane.active .message-group:nth-child(9) .card-message {
+            animation-delay: 1.11s, 1.26s;
+        }
+
+        .chat-pane.active .message-group:nth-child(10) .card-message {
+            animation-delay: 1.23s, 1.38s;
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-bottom: 12px;
+        }
+
+        .card-content {
+            color: var(--gray-500);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: gap 0.2s ease;
+        }
+
+        .card-link:hover {
+            gap: 10px;
+        }
+
+        /* ===== スキルグリッド ===== */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .skill-box {
+            background: var(--message-bg);
+            padding: 12px;
+            border-radius: 8px;
+            animation: messageSlideIn 0.4s ease-out backwards;
+            transition: all 0.2s ease;
+        }
+
+        .skill-box:hover {
+            background: var(--light-blue);
+            transform: translateY(-2px);
+        }
+
+        .skill-box:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .skill-box:nth-child(2) {
+            animation-delay: 0.32s;
+        }
+
+        .skill-box:nth-child(3) {
+            animation-delay: 0.44s;
+        }
+
+        .skill-box:nth-child(4) {
+            animation-delay: 0.56s;
+        }
+
+        .skill-category-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            animation: typeWriter 0.4s steps(30) ease-out backwards;
+        }
+
+        .skill-box:nth-child(1) .skill-category-title {
+            animation-delay: 0.2s;
+        }
+
+        .skill-box:nth-child(2) .skill-category-title {
+            animation-delay: 0.32s;
+        }
+
+        .skill-box:nth-child(3) .skill-category-title {
+            animation-delay: 0.44s;
+        }
+
+        .skill-box:nth-child(4) .skill-category-title {
+            animation-delay: 0.56s;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            padding: 4px 0;
+            color: var(--gray-500);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            animation: typeWriter 0.35s steps(30) ease-out backwards;
+        }
+
+        .skill-item:nth-child(2) {
+            animation-delay: 0.05s;
+        }
+
+        .skill-item:nth-child(3) {
+            animation-delay: 0.1s;
+        }
+
+        .skill-item:nth-child(4) {
+            animation-delay: 0.15s;
+        }
+
+        .skill-item:nth-child(5) {
+            animation-delay: 0.2s;
+        }
+
+        .skill-item:nth-child(6) {
+            animation-delay: 0.25s;
+        }
+
+        .skill-item::before {
+            content: '•';
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        /* ===== フッター ===== */
+        .footer {
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-200);
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--gray-500);
+            flex-shrink: 0;
+        }
+
+        /* ===== スクロールバー ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-400);
+        }
+
+        /* ===== レスポンシブ ===== */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 250px;
+            }
+
+            .chat-messages {
+                padding: 16px 20px;
+            }
+
+            .skill-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <div class="header">
+            <div class="logo">YA</div>
+            <div class="title">YANAi Taketo - Portfolio</div>
+        </div>
+
+        <div class="main-content">
+            <!-- サイドバー -->
+            <div class="sidebar">
+                <div class="sidebar-search">
+                    <input type="text" class="search-box" placeholder="検索...">
+                </div>
+
+                <div class="sidebar-section-title">セクション</div>
+                <ul class="sidebar-list">
+                    <li class="sidebar-item active" data-section="profile">
+                        <span class="sidebar-icon">👤</span>
+                        <span>プロフィール</span>
+                    </li>
+                    <li class="sidebar-item" data-section="skills">
+                        <span class="sidebar-icon">💡</span>
+                        <span>スキル</span>
+                    </li>
+                    <li class="sidebar-item" data-section="projects">
+                        <span class="sidebar-icon">🚀</span>
+                        <span>プロジェクト</span>
+                    </li>
+                    <li class="sidebar-item" data-section="contact">
+                        <span class="sidebar-icon">✉️</span>
+                        <span>お問い合わせ</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- チャットエリア -->
+            <div class="chat-area">
+                <!-- プロフィール -->
+                <div class="chat-pane active" id="profile">
+                    <div class="chat-header">
+                        <div class="chat-header-icon">👤</div>
+                        <div class="chat-header-content">
+                            <h2>プロフィール</h2>
+                            <p>自己紹介</p>
+                        </div>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message-group">
+                            <div class="message-avatar">YA</div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-author">YANAi Taketo</span>
+                                    <span class="message-time">13:45</span>
+                                </div>
+                                <div class="message-text">
+                                    <strong>柳井 建人</strong><br>
+                                    ソフトウェアエンジニア
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="message-group">
+                            <div class="message-avatar">YA</div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-author">自己紹介</span>
+                                    <span class="message-time">13:46</span>
+                                </div>
+                                <div class="message-text">
+                                    山口県全体のシステムエンジニアです。様々な技術を勉強中です。<br><br>
+                                    ウェブサイト：<a href="https://www.ta-yan.ai/" target="_blank">YANAi Taketo - Portfolio</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="message-group">
+                            <div class="message-avatar">YA</div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-author">詳細情報</span>
+                                    <span class="message-time">13:47</span>
+                                </div>
+                                <div class="message-text">
+                                    システム開発とウェブ技術に関心を持ち、常に最新の技術トレンドをキャッチアップしながら、実務経験を活かした質の高いソリューションを提供することを目指しています。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- スキル -->
+                <div class="chat-pane" id="skills">
+                    <div class="chat-header">
+                        <div class="chat-header-icon">💡</div>
+                        <div class="chat-header-content">
+                            <h2>スキル</h2>
+                            <p>保有スキルと技術</p>
+                        </div>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message-group">
+                            <div class="message-avatar">YA</div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-author">技術スキル</span>
+                                    <span class="message-time">14:00</span>
+                                </div>
+                                <div class="skill-grid">
+                                    <div class="skill-box">
+                                        <div class="skill-category-title">プログラミング言語</div>
+                                        <ul class="skill-list">
+                                            <li class="skill-item">C</li>
+                                            <li class="skill-item">C#</li>
+                                            <li class="skill-item">VB.net</li>
+                                            <li class="skill-item">Golang</li>
+                                            <li class="skill-item">Python</li>
+                                            <li class="skill-item">JavaScript</li>
+                                        </ul>
+                                    </div>
+                                    <div class="skill-box">
+                                        <div class="skill-category-title">データベース</div>
+                                        <ul class="skill-list">
+                                            <li class="skill-item">SQL Server</li>
+                                            <li class="skill-item">Oracle</li>
+                                            <li class="skill-item">MySQL</li>
+                                            <li class="skill-item">PostgreSQL</li>
+                                        </ul>
+                                    </div>
+                                    <div class="skill-box">
+                                        <div class="skill-category-title">開発ツール</div>
+                                        <ul class="skill-list">
+                                            <li class="skill-item">Git &amp; GitHub</li>
+                                            <li class="skill-item">Visual Studio</li>
+                                            <li class="skill-item">VS Code</li>
+                                            <li class="skill-item">Docker</li>
+                                        </ul>
+                                    </div>
+                                    <div class="skill-box">
+                                        <div class="skill-category-title">ウェブ技術</div>
+                                        <ul class="skill-list">
+                                            <li class="skill-item">HTML/CSS</li>
+                                            <li class="skill-item">React</li>
+                                            <li class="skill-item">Node.js</li>
+                                            <li class="skill-item">WordPress</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- プロジェクト -->
+                <div class="chat-pane" id="projects">
+                    <div class="chat-header">
+                        <div class="chat-header-icon">🚀</div>
+                        <div class="chat-header-content">
+                            <h2>プロジェクト</h2>
+                            <p>完成・進行中のプロジェクト</p>
+                        </div>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message-group">
+                            <div class="message-avatar">YA</div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-author">Tech Blog</span>
+                                    <span class="message-time">14:15</span>
+                                </div>
+                                <div class="card-message">
+                                    <div class="card-title">📝 Tech Blog</div>
+                                    <div class="card-subtitle">2022年 • WordPress</div>
+                                    <div class="card-content">
+                                        技術情報やナレッジを共有するための個人ブログ。最新のプログラミングトレンドやマイクロソフト技術に関する投稿を掲載しています。
+                                    </div>
+                                    <div class="card-tags">
+                                        <span class="tag">WordPress</span>
+                                        <span class="tag">PHP</span>
+                                        <span class="tag">MySQL</span>
+                                    </div>
+                                    <a href="https://techlog.ta-yan.ai/" target="_blank" class="card-link">
+                                        プロジェクトを見る →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="message-group">
+                            <div class="message-avatar">YA</div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-author">ChiroMail</span>
+                                    <span class="message-time">14:16</span>
+                                </div>
+                                <div class="card-message">
+                                    <div class="card-title">📧 ChiroMail</div>
+                                    <div class="card-subtitle">2025年 • PHP × Microsoft 365</div>
+                                    <div class="card-content">
+                                        カイロプラクティック業界向けの統合メールシステム。Microsoft 365と連携し、顧客管理とメール配信を効率化します。
+                                    </div>
+                                    <div class="card-tags">
+                                        <span class="tag">PHP</span>
+                                        <span class="tag">Microsoft 365</span>
+                                        <span class="tag">HTML/CSS</span>
+                                    </div>
+                                    <a href="https://chiromail.chiropractic.jp/" target="_blank" class="card-link">
+                                        プロジェクトを見る →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- お問い合わせ -->
+                <div class="chat-pane" id="contact">
+                    <div class="chat-header">
+                        <div class="chat-header-icon">✉️</div>
+                        <div class="chat-header-content">
+                            <h2>お問い合わせ</h2>
+                            <p>連絡先情報</p>
+                        </div>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message-group">
+                            <div class="message-avatar">YA</div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-author">連絡先</span>
+                                    <span class="message-time">14:30</span>
+                                </div>
+                                <div class="message-text">
+                                    ご質問、ご提案、またはお仕事のご依頼など、以下の連絡先までお気軽にお問い合わせください。
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="message-group">
+                            <div class="message-avatar">YA</div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-author">詳細情報</span>
+                                    <span class="message-time">14:31</span>
+                                </div>
+                                <div class="card-message">
+                                    <div class="card-title">📬 Email</div>
+                                    <a href="mailto:inquiry@ta-yan.ai" class="card-link">
+                                        inquiry@ta-yan.ai
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="message-group">
+                            <div class="message-avatar">YA</div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-author">ウェブサイト</span>
+                                    <span class="message-time">14:32</span>
+                                </div>
+                                <div class="card-message">
+                                    <div class="card-title">🌐 Web</div>
+                                    <a href="https://www.ta-yan.ai/" target="_blank" class="card-link">
+                                        https://www.ta-yan.ai/
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="message-group">
+                            <div class="message-avatar">YA</div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-author">所在地</span>
+                                    <span class="message-time">14:33</span>
+                                </div>
+                                <div class="message-text">
+                                    📍 山口県
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- フッター -->
+                <div class="footer">
+                    © 2025 YANAi Taketo. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ナビゲーション機能
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            const chatPanes = document.querySelectorAll('.chat-pane');
+
+            // タイピングインジケーターを挿入する関数
+            function injectTypingIndicators(pane) {
+                const messageGroups = pane.querySelectorAll('.message-group');
+                messageGroups.forEach((group, index) => {
+                    // 既に処理済みの場合はスキップ
+                    if (group.dataset.typingProcessed) {
+                        return;
+                    }
+                    group.dataset.typingProcessed = 'true';
+
+                    const messageContent = group.querySelector('.message-content');
+                    if (messageContent) {
+                        // メッセージテキストまたはカードメッセージを非表示にする
+                        const messageText = messageContent.querySelector('.message-text');
+                        const cardMessage = messageContent.querySelector('.card-message');
+                        
+                        if (messageText || cardMessage) {
+                            // メッセージを最初は非表示にする
+                            if (messageText) {
+                                messageText.style.display = 'none';
+                            }
+                            if (cardMessage) {
+                                cardMessage.style.display = 'none';
+                            }
+
+                            // タイピング中インジケーターを作成
+                            const typingDiv = document.createElement('div');
+                            typingDiv.className = 'typing-indicator';
+                            typingDiv.innerHTML = 'タイピング中<span class="typing-indicator-dot"></span><span class="typing-indicator-dot"></span><span class="typing-indicator-dot"></span>';
+                            
+                            // メッセージやカードの後に挿入
+                            if (messageText) {
+                                messageText.parentNode.insertBefore(typingDiv, messageText);
+                            } else if (cardMessage) {
+                                cardMessage.parentNode.insertBefore(typingDiv, cardMessage);
+                            }
+
+                            // タイピング中を短時間表示してからメッセージを表示
+                            const typingDuration = 200 + (index * 120);
+                            setTimeout(() => {
+                                // タイピング中を消す
+                                typingDiv.style.animation = 'none';
+                                typingDiv.style.opacity = '0';
+                                typingDiv.style.transition = 'opacity 0.3s ease';
+                                
+                                // メッセージを表示
+                                if (messageText) {
+                                    messageText.style.display = 'block';
+                                }
+                                if (cardMessage) {
+                                    cardMessage.style.display = 'block';
+                                }
+
+                                // タイピング中を削除
+                                setTimeout(() => {
+                                    typingDiv.remove();
+                                }, 300);
+                            }, 800 + typingDuration);
+                        }
+                    }
+                });
+            }
+
+            sidebarItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const section = this.dataset.section;
+
+                    // アクティブクラスを更新
+                    sidebarItems.forEach(si => si.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // チャットペインを更新
+                    chatPanes.forEach(pane => {
+                        pane.classList.remove('active');
+                        // 古い処理情報をクリアする
+                        pane.querySelectorAll('.message-group').forEach(group => {
+                            delete group.dataset.typingProcessed;
+                        });
+                    });
+
+                    const targetPane = document.getElementById(section);
+                    if (targetPane) {
+                        targetPane.classList.add('active');
+                        // スクロール位置をリセット
+                        const messagesArea = targetPane.querySelector('.chat-messages');
+                        if (messagesArea) {
+                            messagesArea.scrollTop = 0;
+                        }
+
+                        // タイピングインジケーターを挿入
+                        injectTypingIndicators(targetPane);
+                    }
+                });
+            });
+
+            // ページ読み込み時に、デフォルトのアクティブセクションにもタイピングインジケーターを挿入
+            const activePane = document.querySelector('.chat-pane.active');
+            if (activePane) {
+                setTimeout(() => {
+                    injectTypingIndicators(activePane);
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
