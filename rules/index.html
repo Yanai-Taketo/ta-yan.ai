@@ -487,6 +487,66 @@
                 padding: 8px 12px;
                 font-size: 10px;
             }
+
+            .tokusho-table th {
+                width: 120px;
+                min-width: 100px;
+                padding: 10px 8px;
+                font-size: 11px;
+            }
+
+            .tokusho-table td {
+                padding: 10px 8px;
+                font-size: 11px;
+            }
+        }
+
+        /* ===== 特定商取引法テーブル ===== */
+        .tokusho-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+
+        .tokusho-table th,
+        .tokusho-table td {
+            border: 1px solid var(--gray-200);
+            padding: 12px 16px;
+            text-align: left;
+            vertical-align: top;
+            line-height: 1.6;
+            color: var(--gray-500);
+        }
+
+        .tokusho-table th {
+            background: var(--gray-50);
+            font-weight: 600;
+            color: var(--dark-gray);
+            white-space: nowrap;
+            width: 180px;
+            min-width: 140px;
+        }
+
+        .tokusho-table td a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .tokusho-table td a:hover {
+            text-decoration: underline;
+        }
+
+        .tokusho-table td p {
+            margin: 4px 0;
+        }
+
+        .tokusho-table td p:first-child {
+            margin-top: 0;
+        }
+
+        .tokusho-table td p:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -513,7 +573,7 @@
                     </li>
                     <li class="sidebar-item" data-section="tokusho">
                         <span class="sidebar-icon">🏪</span>
-                        <span>特定商取引法に基づく表示</span>
+                        <span>特定商取引法に基づく表記</span>
                     </li>
                 </ul>
             </div>
@@ -699,59 +759,73 @@
                     </div>
                 </div>
 
-                <!-- 特定商取引法に基づく表示 -->
+                <!-- 特定商取引法に基づく表記 -->
                 <div class="content-pane" id="tokusho">
                     <div class="content-header">
                         <div class="content-header-icon">🏪</div>
                         <div class="content-header-content">
-                            <h2>特定商取引法に基づく表示</h2>
-                            <p>特定商取引法第11条に基づく表示</p>
+                            <h2>特定商取引法に基づく表記</h2>
+                            <p>特定商取引法第11条に基づく表記</p>
                         </div>
                     </div>
                     <div class="content-scroll">
-                        <h3>特定商取引法に基づく表示</h3>
+                        <h3>特定商取引法に基づく表記</h3>
 
-                        <h4>販売業者</h4>
-                        <p>柳井 建人</p>
-
-                        <h4>運営統括責任者</h4>
-                        <p>柳井 建人</p>
-
-                        <h4>所在地</h4>
-                        <p>請求があった際に遅滞なく開示します。</p>
-
-                        <h4>電話番号</h4>
-                        <p>請求があった際に遅滞なく開示します。</p>
-
-                        <h4>メールアドレス</h4>
-                        <p>inquiry@ta-yan.ai</p>
-
-                        <h4>販売URL</h4>
-                        <p>https://ta-yan.ai</p>
-
-                        <h4>販売商品</h4>
-                        <p>デジタルコンテンツ</p>
-
-                        <h4>販売価格</h4>
-                        <p>各サービスページに記載</p>
-
-                        <h4>商品代金以外の必要料金</h4>
-                        <p>なし</p>
-
-                        <h4>お支払い方法</h4>
-                        <ul>
-                            <li>クレジットカード</li>
-                            <li>Apple Pay / Google Pay</li>
-                        </ul>
-
-                        <h4>お支払い時期</h4>
-                        <p>商品購入時にお支払いが確定します。</p>
-
-                        <h4>商品の引渡し時期</h4>
-                        <p>購入後即時提供</p>
-
-                        <h4>返品・キャンセルについて</h4>
-                        <p>デジタルコンテンツという商品の性質上、購入後の返品・返金・キャンセルはお受けできません。</p>
+                        <table class="tokusho-table">
+                            <tbody>
+                                <tr>
+                                    <th>販売業者</th>
+                                    <td>柳井 建人</td>
+                                </tr>
+                                <tr>
+                                    <th>運営統括責任者</th>
+                                    <td>柳井 建人</td>
+                                </tr>
+                                <tr>
+                                    <th>所在地</th>
+                                    <td>請求があった場合は遅滞なく開示いたします。</td>
+                                </tr>
+                                <tr>
+                                    <th>電話番号</th>
+                                    <td>請求があった場合は遅滞なく開示いたします。</td>
+                                </tr>
+                                <tr>
+                                    <th>メールアドレス</th>
+                                    <td>inquiry@ta-yan.ai</td>
+                                </tr>
+                                <tr>
+                                    <th>販売URL</th>
+                                    <td><a href="https://ta-yan.ai" target="_blank" rel="noopener">https://ta-yan.ai</a></td>
+                                </tr>
+                                <tr>
+                                    <th>販売価格</th>
+                                    <td>各サービスページに記載の金額（消費税込み）</td>
+                                </tr>
+                                <tr>
+                                    <th>商品代金以外の必要料金</th>
+                                    <td>なし</td>
+                                </tr>
+                                <tr>
+                                    <th>お支払い方法</th>
+                                    <td>クレジットカード、Apple Pay / Google Pay</td>
+                                </tr>
+                                <tr>
+                                    <th>お支払い時期</th>
+                                    <td>クレジットカード決済の場合、商品購入時に即時決済されます。各カード会社の引き落とし日についてはご利用のカード会社にお問い合わせください。</td>
+                                </tr>
+                                <tr>
+                                    <th>商品の引渡し時期</th>
+                                    <td>決済完了後、即時提供いたします。</td>
+                                </tr>
+                                <tr>
+                                    <th>返品・交換について</th>
+                                    <td>
+                                        <p><strong>＜不良品の場合＞</strong><br>商品に不具合があった場合は、メールにてご連絡ください。内容を確認の上、代替品の提供または返金にて対応いたします。</p>
+                                        <p><strong>＜お客様都合の場合＞</strong><br>デジタルコンテンツという商品の性質上、購入後のお客様都合による返品・返金・キャンセルはお受けできません。</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
                         <div class="update-date">LastUpdate: 2026/02/23</div>
                     </div>
