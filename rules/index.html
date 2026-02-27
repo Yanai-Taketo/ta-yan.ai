@@ -856,33 +856,46 @@
     </div>
 
     <script>
+        // セクション切り替え関数
+        function switchSection(section) {
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            const contentPanes = document.querySelectorAll('.content-pane');
+
+            // アクティブクラスを更新
+            sidebarItems.forEach(si => si.classList.remove('active'));
+            const targetItem = document.querySelector(`.sidebar-item[data-section="${section}"]`);
+            if (targetItem) targetItem.classList.add('active');
+
+            // コンテンツペインを更新
+            contentPanes.forEach(pane => pane.classList.remove('active'));
+            const targetPane = document.getElementById(section);
+            if (targetPane) {
+                targetPane.classList.add('active');
+                const contentScroll = targetPane.querySelector('.content-scroll');
+                if (contentScroll) {
+                    contentScroll.parentElement.scrollTop = 0;
+                }
+            }
+        }
+
         // ナビゲーション機能
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarItems = document.querySelectorAll('.sidebar-item');
-            const contentPanes = document.querySelectorAll('.content-pane');
 
             sidebarItems.forEach(item => {
                 item.addEventListener('click', function() {
                     const section = this.dataset.section;
-
-                    // アクティブクラスを更新
-                    sidebarItems.forEach(si => si.classList.remove('active'));
-                    this.classList.add('active');
-
-                    // コンテンツペインを更新
-                    contentPanes.forEach(pane => pane.classList.remove('active'));
-
-                    const targetPane = document.getElementById(section);
-                    if (targetPane) {
-                        targetPane.classList.add('active');
-                        // スクロール位置をリセット
-                        const contentScroll = targetPane.querySelector('.content-scroll');
-                        if (contentScroll) {
-                            contentScroll.parentElement.scrollTop = 0;
-                        }
-                    }
+                    switchSection(section);
+                    history.replaceState(null, '', '#' + section);
                 });
             });
+
+            // URLハッシュで初期セクションを決定
+            const hash = location.hash.replace('#', '');
+            const validSections = ['terms', 'privacy', 'tokusho'];
+            if (hash && validSections.includes(hash)) {
+                switchSection(hash);
+            }
         });
     </script>
 </body>
