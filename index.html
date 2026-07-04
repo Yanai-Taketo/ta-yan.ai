@@ -1,894 +1,1291 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YANAi Taketo - Portfolio</title>
-    <meta name="description" content="山口県のソフトウェアエンジニア 柳井建人のポートフォリオサイト。スキル、プロジェクト、連絡先情報を掲載しています。">
-    <meta property="og:title" content="YANAi Taketo - Portfolio">
-    <meta property="og:description" content="山口県のソフトウェアエンジニア 柳井建人のポートフォリオサイト">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.ta-yan.ai/">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --paper: #f6f4ef;
-            --ink: #1c1b18;
-            --ink-soft: #55534d;
-            --ink-faint: #8b8880;
-            --line: rgba(28, 27, 24, 0.14);
-            --line-strong: rgba(28, 27, 24, 0.5);
-            --accent: #c2401f;
-            --serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
-            --sans: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
-            --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 96px;
-        }
-
-        body {
-            font-family: var(--sans);
-            font-weight: 400;
-            background: var(--paper);
-            color: var(--ink);
-            line-height: 1.9;
-            letter-spacing: 0.02em;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-        }
-
-        ::selection {
-            background: var(--ink);
-            color: var(--paper);
-        }
-
-        a {
-            color: inherit;
-        }
-
-        .wrap {
-            width: min(1120px, calc(100% - 48px));
-            margin-inline: auto;
-        }
-
-        /* ===== ラベル（英文モノ） ===== */
-        .label {
-            font-family: var(--mono);
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--ink-faint);
-        }
-
-        /* ===== ナビ ===== */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            background: rgba(246, 244, 239, 0.88);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.4s ease;
-        }
-
-        .nav.scrolled {
-            border-bottom-color: var(--line);
-        }
-
-        .nav-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 68px;
-        }
-
-        .nav-name {
-            font-family: var(--serif);
-            font-weight: 600;
-            font-size: 16px;
-            letter-spacing: 0.06em;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: clamp(16px, 3vw, 36px);
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-family: var(--mono);
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: var(--ink-soft);
-            padding: 4px 0;
-            position: relative;
-            transition: color 0.25s ease;
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 1px;
-            background: var(--ink);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--ink);
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        /* ===== ヒーロー ===== */
-        .hero {
-            min-height: 100svh;
-            display: flex;
-            flex-direction: column;
-            padding-top: 68px;
-        }
-
-        .hero-content {
-            position: relative;
-            margin-block: auto;
-            padding-block: 40px;
-        }
-
-        .hero-meta {
-            display: flex;
-            align-items: baseline;
-            gap: 20px;
-            margin-bottom: clamp(28px, 5vh, 48px);
-        }
-
-        .hero-meta .rule {
-            flex: 0 0 48px;
-            height: 1px;
-            background: var(--line-strong);
-            align-self: center;
-        }
-
-        .hero h1 {
-            font-family: var(--serif);
-            font-weight: 600;
-            font-size: clamp(56px, 11vw, 128px);
-            line-height: 1.12;
-            letter-spacing: 0.04em;
-            margin-bottom: clamp(20px, 4vh, 36px);
-        }
-
-        .hero-en {
-            font-family: var(--mono);
-            font-size: clamp(11px, 1.4vw, 13px);
-            font-weight: 400;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--ink-soft);
-            margin-bottom: clamp(32px, 6vh, 56px);
-        }
-
-        .hero-en .accent {
-            color: var(--accent);
-        }
-
-        .hero-lead {
-            max-width: 34em;
-            font-size: 15px;
-            color: var(--ink-soft);
-        }
-
-        .hero-vertical {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            writing-mode: vertical-rl;
-            white-space: nowrap;
-            font-family: var(--serif);
-            font-size: 13px;
-            letter-spacing: 0.42em;
-            color: var(--ink-faint);
-            border-left: 1px solid var(--line);
-            padding-left: 18px;
-        }
-
-        .hero-scroll {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding-bottom: 40px;
-        }
-
-        .hero-scroll .line {
-            width: 64px;
-            height: 1px;
-            background: var(--line-strong);
-            transform-origin: left;
-            animation: scrollLine 2.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-        }
-
-        @keyframes scrollLine {
-            0%   { transform: scaleX(0); transform-origin: left; }
-            45%  { transform: scaleX(1); transform-origin: left; }
-            55%  { transform: scaleX(1); transform-origin: right; }
-            100% { transform: scaleX(0); transform-origin: right; }
-        }
-
-        /* ===== セクション共通 ===== */
-        section {
-            padding: clamp(88px, 14vh, 152px) 0 0;
-        }
-
-        .section-head {
-            display: flex;
-            align-items: baseline;
-            gap: 24px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--line-strong);
-            margin-bottom: clamp(48px, 8vh, 80px);
-        }
-
-        .section-head .num {
-            font-family: var(--mono);
-            font-size: 12px;
-            color: var(--accent);
-            letter-spacing: 0.1em;
-        }
-
-        .section-head h2 {
-            font-family: var(--serif);
-            font-weight: 600;
-            font-size: clamp(26px, 3.6vw, 38px);
-            letter-spacing: 0.06em;
-            line-height: 1.3;
-        }
-
-        .section-head .label {
-            margin-left: auto;
-        }
-
-        /* ===== プロフィール ===== */
-        .profile-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.6fr;
-            gap: clamp(32px, 6vw, 96px);
-        }
-
-        .profile-side {
-            font-family: var(--serif);
-            font-size: clamp(20px, 2.4vw, 26px);
-            font-weight: 500;
-            line-height: 2;
-            letter-spacing: 0.08em;
-        }
-
-        .profile-side small {
-            display: block;
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--ink-faint);
-            margin-top: 12px;
-        }
-
-        .profile-body p {
-            font-size: 15px;
-            color: var(--ink-soft);
-            max-width: 36em;
-        }
-
-        .profile-body p + p {
-            margin-top: 1.4em;
-        }
-
-        .profile-facts {
-            margin-top: clamp(32px, 5vh, 48px);
-            border-top: 1px solid var(--line);
-        }
-
-        .profile-facts div {
-            display: grid;
-            grid-template-columns: 140px 1fr;
-            gap: 16px;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--line);
-            font-size: 14px;
-        }
-
-        .profile-facts dt {
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--ink-faint);
-            align-self: center;
-        }
-
-        .profile-facts dd a {
-            text-decoration: none;
-            border-bottom: 1px solid var(--line-strong);
-            transition: border-color 0.25s ease, color 0.25s ease;
-        }
-
-        .profile-facts dd a:hover {
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        /* ===== スキル ===== */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        .skill-col {
-            padding: 4px clamp(16px, 2.5vw, 32px) 12px 0;
-        }
-
-        .skill-col + .skill-col {
-            border-left: 1px solid var(--line);
-            padding-left: clamp(16px, 2.5vw, 32px);
-        }
-
-        .skill-col .num {
-            font-family: var(--mono);
-            font-size: 11px;
-            color: var(--ink-faint);
-            letter-spacing: 0.1em;
-            display: block;
-            margin-bottom: 14px;
-        }
-
-        .skill-col h3 {
-            font-family: var(--serif);
-            font-size: 17px;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            margin-bottom: 18px;
-        }
-
-        .skill-col ul {
-            list-style: none;
-        }
-
-        .skill-col li {
-            font-family: var(--mono);
-            font-size: 13px;
-            color: var(--ink-soft);
-            padding: 7px 0;
-            border-bottom: 1px solid var(--line);
-            transition: color 0.2s ease, padding-left 0.25s ease;
-        }
-
-        .skill-col li:hover {
-            color: var(--ink);
-            padding-left: 6px;
-        }
-
-        /* ===== プロジェクト ===== */
-        .project-list {
-            border-top: 1px solid var(--line);
-            margin-top: -1px;
-        }
-
-        .project-row {
-            display: grid;
-            grid-template-columns: 88px 1fr auto;
-            gap: clamp(20px, 4vw, 56px);
-            align-items: baseline;
-            padding: clamp(28px, 4.5vh, 44px) 0;
-            border-bottom: 1px solid var(--line);
-            text-decoration: none;
-            position: relative;
-        }
-
-        .project-row .year {
-            font-family: var(--mono);
-            font-size: 12px;
-            color: var(--ink-faint);
-            letter-spacing: 0.08em;
-        }
-
-        .project-row h3 {
-            font-family: var(--serif);
-            font-weight: 600;
-            font-size: clamp(22px, 3vw, 32px);
-            letter-spacing: 0.04em;
-            line-height: 1.4;
-            display: inline;
-            background-image: linear-gradient(var(--ink), var(--ink));
-            background-repeat: no-repeat;
-            background-position: 0 100%;
-            background-size: 0% 1px;
-            transition: background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .project-row:hover h3 {
-            background-size: 100% 1px;
-        }
-
-        .project-row p {
-            font-size: 14px;
-            color: var(--ink-soft);
-            max-width: 38em;
-            margin-top: 10px;
-        }
-
-        .project-row .tech {
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: 0.06em;
-            color: var(--ink-faint);
-            margin-top: 12px;
-        }
-
-        .project-row .arrow {
-            font-family: var(--mono);
-            font-size: 18px;
-            color: var(--ink-faint);
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease;
-        }
-
-        .project-row:hover .arrow {
-            transform: translate(6px, -6px);
-            color: var(--accent);
-        }
-
-        /* ===== コンタクト ===== */
-        .contact-lead {
-            font-size: 15px;
-            color: var(--ink-soft);
-            max-width: 36em;
-            margin-bottom: clamp(40px, 7vh, 64px);
-        }
-
-        .contact-mail {
-            display: inline-block;
-            font-family: var(--serif);
-            font-weight: 500;
-            font-size: clamp(26px, 5.5vw, 56px);
-            letter-spacing: 0.03em;
-            text-decoration: none;
-            line-height: 1.3;
-            background-image: linear-gradient(var(--accent), var(--accent));
-            background-repeat: no-repeat;
-            background-position: 0 100%;
-            background-size: 100% 1px;
-            transition: color 0.3s ease, background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .contact-mail:hover {
-            color: var(--accent);
-            background-size: 100% 2px;
-        }
-
-        .contact-sub {
-            margin-top: clamp(32px, 5vh, 48px);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px 40px;
-            font-family: var(--mono);
-            font-size: 12px;
-            letter-spacing: 0.08em;
-            color: var(--ink-faint);
-        }
-
-        .contact-sub a {
-            text-decoration: none;
-            border-bottom: 1px solid var(--line-strong);
-            transition: color 0.25s ease, border-color 0.25s ease;
-        }
-
-        .contact-sub a:hover {
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        /* ===== フッター ===== */
-        .footer {
-            margin-top: clamp(88px, 14vh, 152px);
-            border-top: 1px solid var(--line-strong);
-        }
-
-        .footer-inner {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px 24px;
-            justify-content: space-between;
-            align-items: center;
-            padding: 28px 0;
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: 0.14em;
-            color: var(--ink-faint);
-        }
-
-        /* ===== リビール ===== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(14px);
-            transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .reveal.in {
-            opacity: 1;
-            transform: none;
-        }
-
-        /* ===== レスポンシブ ===== */
-        @media (max-width: 900px) {
-            .skills-grid {
-                grid-template-columns: 1fr 1fr;
-                row-gap: 40px;
-            }
-
-            .skill-col:nth-child(3) {
-                border-left: none;
-                padding-left: 0;
-            }
-
-            .hero-vertical {
-                display: none;
-            }
-        }
-
-        @media (max-width: 640px) {
-            body {
-                line-height: 1.85;
-            }
-
-            .nav-inner {
-                height: 60px;
-            }
-
-            .nav-links {
-                gap: 14px;
-            }
-
-            .nav-links a {
-                font-size: 10px;
-                letter-spacing: 0.12em;
-            }
-
-            .profile-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-                row-gap: 36px;
-            }
-
-            .skill-col + .skill-col {
-                border-left: none;
-                padding-left: 0;
-            }
-
-            .project-row {
-                grid-template-columns: 1fr;
-                gap: 4px;
-            }
-
-            .project-row .arrow {
-                position: absolute;
-                top: clamp(28px, 4.5vh, 44px);
-                right: 0;
-            }
-
-            .profile-facts div {
-                grid-template-columns: 110px 1fr;
-            }
-
-            .section-head .label {
-                display: none;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-
-            *, *::before, *::after {
-                animation: none !important;
-                transition: none !important;
-            }
-
-            .reveal {
-                opacity: 1;
-                transform: none;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YANAi Taketo - Portfolio</title>
+<meta name="description" content="山口県のソフトウェアエンジニア 柳井建人のポートフォリオサイト。スキル、プロジェクト、連絡先情報を掲載しています。">
+<meta property="og:title" content="YANAi Taketo - Portfolio">
+<meta property="og:description" content="困っている人の「それ欲しかった」を作りたい — 山口県のソフトウェアエンジニア 柳井建人">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.ta-yan.ai/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f5efe0'/%3E%3Ccircle cx='26' cy='30' r='17' fill='%230078bf'/%3E%3Ccircle cx='38' cy='36' r='17' fill='%23ff4a1e' fill-opacity='0.85'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Space+Mono:ital@0;1&family=Barlow:wght@500;700&family=Barlow+Condensed:wght@600&family=IBM+Plex+Mono&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* =====================================================
+     RISO ATHLETICS — 2-color risograph x vintage athletic
+     Ink 1: BLUE  #0078bf
+     Ink 2: FLUO RED-ORANGE #ff4a1e
+     Paper: natural off-white #f5efe0
+  ===================================================== */
+  :root {
+    --paper: #f5efe0;
+    --blue: #0078bf;
+    --red: #ff4a1e;
+    --red-ink: #cc3610; /* deeper red for small text (readability) */
+    --ink: #23303b; /* blue-leaning near-black for body text */
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--paper); }
+
+  a { color: var(--blue); }
+
+  .en { font-family: "Archivo Black", sans-serif; }
+  .mono { font-family: "Space Mono", monospace; }
+
+  /* ---- paper grain over everything ---- */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---- skip link ---- */
+  .skip {
+    position: absolute;
+    left: 8px; top: -48px;
+    z-index: 90;
+    background: var(--blue);
+    color: var(--paper);
+    padding: 8px 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: top 0.15s;
+  }
+  .skip:focus { top: 8px; }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 clamp(18px, 4vw, 48px);
+  }
+
+  /* =====================================================
+     HEADER / NAV
+  ===================================================== */
+  .site-head {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--paper);
+    border-bottom: 3px solid var(--blue);
+  }
+  .site-head .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .team {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.14em;
+    color: var(--blue);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .team em { font-style: normal; color: var(--red); }
+
+  .site-head nav ul {
+    list-style: none;
+    display: flex;
+    gap: clamp(4px, 1.2vw, 10px);
+    flex-wrap: wrap;
+  }
+  .site-head nav a {
+    display: block;
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+    border: 2px solid var(--blue);
+    mix-blend-mode: multiply;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .site-head nav a:hover,
+  .site-head nav a:focus-visible {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--paper);
+    mix-blend-mode: normal;
+  }
+
+  /* =====================================================
+     HERO
+  ===================================================== */
+  .hero {
+    position: relative;
+    min-height: calc(100svh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 3px solid var(--blue);
+  }
+
+  /* two misregistered ink plates: circle behind name */
+  .plate { position: absolute; mix-blend-mode: multiply; pointer-events: none; }
+  .hero-circle-red {
+    width: clamp(220px, 42vw, 520px);
+    height: clamp(220px, 42vw, 520px);
+    border-radius: 50%;
+    background: var(--red);
+    top: -14%;
+    right: -8%;
+    opacity: 0.85;
+  }
+  /* blue plate printed as halftone dots, slightly off-register */
+  .hero-circle-blue {
+    width: clamp(220px, 42vw, 520px);
+    height: clamp(220px, 42vw, 520px);
+    border-radius: 50%;
+    background-image: radial-gradient(var(--blue) 2.1px, transparent 2.2px);
+    background-size: 10px 10px;
+    top: calc(-14% + 12px);
+    right: calc(-8% - 16px);
+    opacity: 0.9;
+  }
+
+  /* diagonal varsity band, 2 plates slightly off — kept faint for readability */
+  .hero-band {
+    position: absolute;
+    left: -15%;
+    bottom: 26%;
+    width: 130%;
+    height: clamp(34px, 6.5vw, 64px);
+    transform: rotate(-5deg);
+    background: var(--blue);
+    opacity: 0.14;
+  }
+  .hero-band.off {
+    background: var(--red);
+    transform: rotate(-5deg) translate(7px, 6px);
+    opacity: 0.12;
+  }
+
+  /* halftone dot patch */
+  .hero-dots {
+    position: absolute;
+    left: 3%;
+    top: 8%;
+    width: clamp(90px, 16vw, 190px);
+    height: clamp(90px, 16vw, 190px);
+    background-image: radial-gradient(var(--red) 1.6px, transparent 1.7px);
+    background-size: 9px 9px;
+    mix-blend-mode: multiply;
+    opacity: 0.75;
+    pointer-events: none;
+  }
+
+  /* giant bib number, blue plate + red ghost */
+  .bib {
+    position: absolute;
+    right: clamp(-30px, -2vw, -10px);
+    bottom: -5%;
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(190px, 40vw, 440px);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--blue);
+    opacity: 0.14;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    user-select: none;
+  }
+  .bib::before {
+    content: "35";
+    position: absolute;
+    top: -4px;
+    left: 5px;
+    color: var(--red);
+    opacity: 0.8;
+    z-index: -1;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding-top: clamp(40px, 8vh, 80px);
+    padding-bottom: clamp(40px, 8vh, 80px);
+  }
+
+  .varsity-tag {
+    display: inline-flex;
+    align-items: center;
+    background: var(--red);
+    color: var(--paper);
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(11px, 1.6vw, 14px);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 7px 18px;
+    transform: skewX(-10deg);
+    mix-blend-mode: multiply;
+    margin-bottom: clamp(18px, 3.5vh, 30px);
+  }
+  .varsity-tag span { display: block; transform: skewX(10deg); }
+
+  /* misregistered two-plate name */
+  .title-stack { position: relative; display: inline-block; }
+  .title {
+    font-weight: 900;
+    font-size: clamp(46px, 11vw, 128px);
+    line-height: 1.06;
+    letter-spacing: 0.02em;
+    mix-blend-mode: multiply;
+  }
+  .title.blue-plate { color: var(--blue); position: relative; }
+  .title.red-plate {
+    color: var(--red);
+    position: absolute;
+    top: 2px;
+    left: -2px;
+    opacity: 0.85;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .name-en {
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(18px, 3.6vw, 40px);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue);
+    mix-blend-mode: multiply;
+    margin-top: clamp(8px, 1.6vh, 16px);
+  }
+  .name-en b { color: var(--red); font-weight: inherit; }
+
+  .hero-copy {
+    margin-top: clamp(22px, 4.5vh, 40px);
+    font-size: clamp(16px, 2.6vw, 23px);
+    font-weight: 700;
+    line-height: 1.9;
+    max-width: 30em;
+  }
+  .hero-copy strong {
+    font-weight: 900;
+    color: var(--paper);
+    background: var(--red);
+    padding: 0 5px;
+  }
+
+  .hero-meta {
+    margin-top: clamp(20px, 4vh, 36px);
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-family: "Space Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--blue);
+  }
+  .hero-meta .dot { color: var(--red); }
+
+  /* bottom strip in hero */
+  .hero-strip {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 10px clamp(18px, 4vw, 48px);
+    font-family: "Space Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--blue);
+    text-transform: uppercase;
+  }
+
+  /* =====================================================
+     SECTION COMMON
+  ===================================================== */
+  section { padding: clamp(56px, 10vh, 110px) 0; scroll-margin-top: 72px; }
+
+  @media (max-width: 760px) {
+    .side-dots { display: none; }
+  }
+  @media (max-width: 560px) {
+    section { scroll-margin-top: 140px; }
+  }
+
+  .sec-head { margin-bottom: clamp(28px, 5vh, 48px); }
+  .sec-no {
+    font-family: "Space Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    color: var(--red-ink);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .sec-title {
+    position: relative;
+    display: inline-block;
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(30px, 6.4vw, 62px);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--blue);
+    mix-blend-mode: multiply;
+  }
+  .sec-title::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 1.5px;
+    left: -1.5px;
+    color: var(--red);
+    opacity: 0.75;
+    z-index: -1;
+    user-select: none;
+  }
+  .sec-title-ja {
+    display: block;
+    margin-top: 6px;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-weight: 900;
+    font-size: clamp(15px, 2.4vw, 20px);
+    letter-spacing: 0.3em;
+    color: var(--ink);
+  }
+
+  /* =====================================================
+     PROFILE — player roster page
+  ===================================================== */
+  #profile { border-bottom: 3px solid var(--blue); position: relative; overflow: hidden; }
+
+  #profile .side-dots {
+    position: absolute;
+    right: -40px;
+    top: 10%;
+    width: 200px;
+    height: 260px;
+    background-image: radial-gradient(var(--blue) 1.5px, transparent 1.6px);
+    background-size: 10px 10px;
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .roster {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 48px);
+    align-items: start;
+  }
+
+  .roster-bio p { margin-bottom: 1.2em; font-size: clamp(14px, 1.9vw, 16px); }
+  .roster-bio p:last-child { margin-bottom: 0; }
+
+  .roster-lede {
+    font-weight: 900;
+    font-size: clamp(17px, 2.6vw, 22px) !important;
+    line-height: 1.8;
+    color: var(--blue);
+  }
+
+  /* rirekisho-style resume card */
+  .resume {
+    position: relative;
+    border: 3px solid var(--blue);
+    background: var(--paper);
+  }
+  .resume::after {
+    /* misregistered second plate of the frame */
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 3px solid var(--red);
+    transform: translate(4px, 4px);
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .resume-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 14px 16px 10px;
+    border-bottom: 2px solid var(--blue);
+  }
+  .resume-title {
+    font-weight: 900;
+    font-size: 20px;
+    letter-spacing: 0.5em;
+    color: var(--blue);
+  }
+  .resume-date {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+  }
+  .resume-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(76px, 10vw, 96px);
+    gap: 14px;
+    padding: 16px;
+    align-items: start;
+  }
+  .resume-names { border: 2px solid var(--blue); }
+  .resume-names .furigana,
+  .resume-names .shimei {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 12px;
+  }
+  .resume-names .furigana {
+    font-size: 11px;
+    border-bottom: 1px dashed var(--blue);
+  }
+  .resume-names .shimei {
+    font-weight: 900;
+    font-size: clamp(16px, 2.4vw, 20px);
+    padding-top: 8px;
+    padding-bottom: 9px;
+  }
+  .resume-names .lbl {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    color: var(--red-ink);
+    white-space: nowrap;
+  }
+  .resume-photo {
+    aspect-ratio: 3 / 4;
+    border: 2px dashed var(--blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background-image: radial-gradient(var(--blue) 1.1px, transparent 1.2px);
+    background-size: 8px 8px;
+    mix-blend-mode: multiply;
+  }
+  .resume-photo .yt {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 22px;
+    color: var(--blue);
+    background: var(--paper);
+    padding: 0 5px;
+  }
+  .resume-photo .ph {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--red-ink);
+    background: var(--paper);
+    padding: 0 5px 0 8px;
+  }
+  .resume-rows {
+    grid-column: 1 / -1;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid var(--blue);
+  }
+  .resume-rows th,
+  .resume-rows td {
+    text-align: left;
+    vertical-align: top;
+    padding: 9px 12px;
+    border-top: 1px solid var(--blue);
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+  .resume-rows tr:first-child th,
+  .resume-rows tr:first-child td { border-top: none; }
+  .resume-rows th {
+    width: 6em;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--red-ink);
+    padding-top: 11px;
+    white-space: nowrap;
+    border-right: 1px dashed var(--blue);
+  }
+  .resume-rows td { font-weight: 700; word-break: break-all; }
+  .resume-rows td a { text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .resume-rows td a:hover { color: var(--red); }
+
+  /* =====================================================
+     SKILLS — event badges
+  ===================================================== */
+  #skills { border-bottom: 3px solid var(--blue); position: relative; overflow: hidden; }
+
+  .badge-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(16px, 3vw, 28px);
+  }
+
+  /* punch card: skills encoded on an 80-column card */
+  .punch-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--blue);
+    background: var(--paper);
+    /* clipped corner, the signature of a punch card */
+    clip-path: polygon(26px 0, 100% 0, 100% 100%, 0 100%, 0 26px);
+  }
+  .punch-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    padding: 12px 16px 10px 36px;
+    border-bottom: 2px solid var(--blue);
+  }
+  .punch-title {
+    font-weight: 900;
+    font-size: clamp(16px, 2.2vw, 20px);
+    line-height: 1.3;
+    color: var(--blue);
+  }
+  .punch-title .en {
+    display: block;
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red-ink);
+    margin-top: 2px;
+  }
+  .punch-form {
+    font-family: "Space Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    color: var(--red-ink);
+    white-space: nowrap;
+  }
+  .punch-rows {
+    list-style: none;
+    flex: 1;
+    padding: 6px 16px 8px;
+  }
+  .punch-rows li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0 7px;
+    border-bottom: 1px dotted rgba(0, 120, 191, 0.4);
+    font-family: "Space Mono", monospace;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .punch-rows li:last-child { border-bottom: none; }
+  .punch-rows .holes {
+    margin-left: auto;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .punch-rows .holes i {
+    width: 5px;
+    height: 12px;
+    background: var(--blue);
+    mix-blend-mode: multiply;
+  }
+  .punch-rows .holes i.g { background: transparent; }
+  .punch-rows li.star .holes i { background: var(--red); }
+  .punch-rows li.star .holes i.g { background: transparent; }
+  /* column-number strip along the bottom edge */
+  .punch-digits {
+    padding: 5px 14px 7px;
+    border-top: 1px solid rgba(0, 120, 191, 0.4);
+    font-family: "Space Mono", monospace;
+    font-size: 8px;
+    letter-spacing: 5px;
+    color: var(--blue);
+    opacity: 0.6;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  /* =====================================================
+     PROJECTS — record book
+  ===================================================== */
+  #projects { border-bottom: 3px solid var(--blue); position: relative; overflow: hidden; }
+
+
+  /* continuous-form printout: projects as a tractor-feed job log,
+     printed on white stock so it reads as a real object on the page */
+  .printout {
+    position: relative;
+    display: flex;
+    background:
+      repeating-linear-gradient(to bottom, rgba(110, 108, 100, 0.10) 0 30px, transparent 30px 60px),
+      #fbfaf6;
+    filter: drop-shadow(2px 5px 10px rgba(20, 17, 12, 0.18));
+  }
+  .sprocket {
+    flex: 0 0 28px;
+    background-image: radial-gradient(circle at 50% 15px, var(--paper) 4px, rgba(110, 108, 100, 0.65) 4.5px, transparent 6px);
+    background-size: 100% 30px;
+    background-repeat: repeat-y;
+  }
+  .sprocket.l { border-right: 1px dashed rgba(140, 138, 130, 0.65); }
+  .sprocket.r { border-left: 1px dashed rgba(140, 138, 130, 0.65); }
+
+  .print-body { flex: 1; min-width: 0; padding: 14px clamp(16px, 3vw, 28px) 20px; }
+
+  .print-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-family: "Space Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red-ink);
+    padding-bottom: 10px;
+    border-bottom: 1px dashed rgba(140, 138, 130, 0.65);
+  }
+
+  .job { position: relative; padding: 20px 0 22px; }
+  .job + .job { border-top: 1px dashed rgba(140, 138, 130, 0.65); }
+  .job-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-family: "Space Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red-ink);
+    margin-bottom: 6px;
+  }
+  .job h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-weight: 900;
+    font-size: clamp(19px, 3vw, 26px);
+    line-height: 1.3;
+    color: var(--blue);
+  }
+  .job h3 a {
+    color: inherit;
+    text-decoration: none;
+    background-image: linear-gradient(var(--red), var(--red));
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+    background-position: 0 100%;
+    padding-bottom: 2px;
+  }
+  .job h3 a:hover { color: var(--red); }
+  .job .desc { font-size: clamp(13.5px, 1.8vw, 15px); max-width: 44em; margin-top: 8px; }
+  .job .tech {
+    font-family: "Space Mono", monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: var(--red-ink);
+    margin-top: 10px;
+  }
+  .job .jump {
+    display: inline-block;
+    margin-top: 10px;
+    font-family: "Space Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 2px solid var(--blue);
+    padding-bottom: 1px;
+  }
+  .job .jump:hover { color: var(--red); border-color: var(--red); }
+
+  /* rubber stamp for work-in-progress projects */
+  .wip {
+    display: inline-block;
+    border: 3px double var(--red);
+    color: var(--red-ink);
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    line-height: 1.4;
+    padding: 2px 5px 2px 10px;
+    transform: rotate(-5deg);
+    mix-blend-mode: multiply;
+  }
+
+  /* =====================================================
+     CONTACT — ticket CTA
+  ===================================================== */
+  #contact { position: relative; overflow: hidden; }
+
+  #contact .band-bg {
+    position: absolute;
+    left: -15%;
+    top: 46%;
+    width: 130%;
+    height: clamp(50px, 9vw, 90px);
+    transform: rotate(-4deg);
+    background: var(--red);
+    opacity: 0.14;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
+  /* ==== boarding pass — ported verbatim from draft B (paper ephemera) ==== */
+  .pass {
+    --navy: #12395e;
+    --label: #7c8894;
+    --ink: #26241f;
+    --red: #b3402c;
+    --mono: "IBM Plex Mono", "Noto Sans JP", monospace;
+    --sans: "Barlow", "Noto Sans JP", sans-serif;
+    --cond: "Barlow Condensed", "Noto Sans JP", sans-serif;
+    --jp: "Noto Sans JP", sans-serif;
+    width: min(880px, 100%);
+    margin: 0 auto;
+    background: #fbfaf6;
+    border-radius: 12px;
+    display: flex;
+    overflow: hidden;
+    font-family: var(--sans);
+    color: var(--ink);
+    filter: drop-shadow(3px 7px 12px rgba(20, 17, 12, 0.28));
+    transform: rotate(-1.1deg);
+    position: relative;
+    z-index: 1;
+  }
+  .pass .main { flex: 2.6; min-width: 0; }
+  .band {
+    background: var(--navy); color: #fff;
+    display: flex; align-items: baseline; gap: 14px;
+    padding: 12px 22px;
+  }
+  .band .airline { font-size: 17px; font-weight: 700; letter-spacing: .22em; }
+  .band .bp { margin-left: auto; font-family: var(--cond); font-size: 13px; letter-spacing: .3em; opacity: .85; }
+  .pass .inner { padding: 18px 22px 20px; }
+
+  .field { min-width: 0; }
+  .field .lb {
+    display: block;
+    font-family: var(--cond);
+    font-size: 11px; font-weight: 600; letter-spacing: .18em;
+    color: var(--label); text-transform: uppercase;
+  }
+  .field .val { font-size: 17px; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
+  .field .val small { font-size: 11px; font-weight: 500; color: var(--label); letter-spacing: .1em; }
+  .field .val.jp { font-family: var(--jp); font-size: 14px; }
+  .field .val a { text-decoration: none; border-bottom: 1.5px dotted #9aa5b0; }
+  .field .val a:hover { border-bottom-style: solid; color: var(--navy); }
+
+  .grid-top { display: flex; gap: 16px 26px; flex-wrap: wrap; }
+
+  .route { display: flex; align-items: center; gap: 18px; margin: 16px 0 6px; }
+  .route .apt .code { font-size: clamp(30px, 5vw, 44px); font-weight: 700; line-height: 1; letter-spacing: .02em; }
+  .route .apt .city { font-size: 11px; font-weight: 500; color: var(--label); letter-spacing: .14em; }
+  .route .plane { flex: 1; display: flex; align-items: center; gap: 8px; color: var(--navy); min-width: 60px; }
+  .route .plane::before, .route .plane::after { content: ""; flex: 1; border-top: 2px dashed #c8cdd2; }
+  .route .plane svg { width: 26px; height: 26px; flex-shrink: 0; }
+
+  .pass .info {
+    margin-top: 14px; border-top: 2px solid var(--ink); padding-top: 12px;
+    display: flex; gap: 12px 28px; flex-wrap: wrap;
+  }
+
+  .remarks { margin-top: 14px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .remarks .lb { font-family: var(--cond); font-size: 11px; font-weight: 600; letter-spacing: .18em; color: var(--red); }
+  .remarks p { font-family: var(--jp); font-size: clamp(14px, 2vw, 17px); font-weight: 700; }
+
+  .pax-note {
+    margin-top: 14px;
+    border: 1.5px dashed #c8cdd2; border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .pax-note .cap {
+    font-family: var(--cond); font-size: 11px; font-weight: 600;
+    letter-spacing: .24em; color: var(--label);
+  }
+  .pax-note p {
+    font-family: var(--jp);
+    font-size: 13px; line-height: 1.95; letter-spacing: .04em;
+    margin-top: 6px; color: #38414b;
+  }
+  .pax-note a { text-decoration: none; border-bottom: 1.5px dotted #9aa5b0; font-weight: 700; }
+  .pax-note a:hover { border-bottom-style: solid; color: var(--navy); }
+
+  /* 切り取り線 */
+  .perf {
+    flex-shrink: 0; position: relative; width: 0;
+    border-left: 2px dashed #b9c0c6;
+  }
+  .perf::before, .perf::after {
+    content: ""; position: absolute; left: -11px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--paper);
+  }
+  .perf::before { top: -10px; }
+  .perf::after { bottom: -10px; }
+
+  .stub { flex: 1; min-width: 190px; background: #f2f0e8; display: flex; flex-direction: column; }
+  .stub .band { padding: 12px 16px; }
+  .stub .band .airline { font-size: 12px; }
+  .stub .inner { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .stub .field .val { font-size: 14px; }
+
+  .barcode {
+    height: 44px;
+    background: repeating-linear-gradient(90deg,
+      var(--ink) 0 2px, transparent 2px 5px,
+      var(--ink) 5px 8px, transparent 8px 10px,
+      var(--ink) 10px 11px, transparent 11px 15px,
+      var(--ink) 15px 17px, transparent 17px 19px);
+  }
+  .stub .barcode { margin-top: auto; }
+  .stub .num { font-family: var(--mono); font-size: 10px; letter-spacing: .28em; color: var(--label); text-align: center; margin-top: 5px; }
+
+  /* =====================================================
+     FOOTER
+  ===================================================== */
+  .site-foot {
+    border-top: 3px solid var(--blue);
+    padding: 22px 0 26px;
+  }
+  .site-foot .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .site-foot small {
+    font-family: "Space Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+  }
+  .site-foot .ink-note {
+    font-family: "Space Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+  }
+  .site-foot .ink-note .r { color: var(--red); }
+
+  /* =====================================================
+     RESPONSIVE
+  ===================================================== */
+  @media (max-width: 760px) {
+    .roster { grid-template-columns: 1fr; }
+    .badge-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 560px) {
+    .site-head .wrap { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .site-head nav a { font-size: 12px; padding: 4px 9px; }
+    .bib { font-size: 180px; right: -20px; bottom: 2%; }
+    .hero-strip { flex-direction: column; gap: 2px; }
+    .sprocket { flex-basis: 16px; }
+    .sprocket {
+      background-image: radial-gradient(circle at 50% 15px, var(--paper) 3px, rgba(110, 108, 100, 0.65) 3.5px, transparent 4.5px);
+    }
+    .job-head { flex-direction: column; gap: 2px; }
+    .pass { flex-direction: column; }
+    .perf { width: auto; height: 0; border-left: none; border-top: 2px dashed #b9c0c6; }
+    .perf::before { top: -10px; left: -10px; }
+    .perf::after { bottom: auto; top: -10px; left: auto; right: -10px; }
+    .pass .inner { padding: 14px 16px 16px; }
+    .grid-top { gap: 12px 20px; }
+    .band { padding: 11px 16px; }
+    .band .bp { display: none; }
+    .stub .inner { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
+    .stub .barcode { margin-top: 0; width: 100%; height: 34px; }
+    .stub .num { width: 100%; margin-top: 2px; }
+    .field .val { white-space: normal; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
 </head>
 <body>
-    <!-- ナビ -->
-    <nav class="nav" id="nav">
-        <div class="wrap nav-inner">
-            <a class="nav-name" href="#top">柳井 建人</a>
-            <ul class="nav-links">
-                <li><a href="#profile">Profile</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+  <a class="skip" href="#main">本文へスキップ</a>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-head">
+    <div class="wrap">
+      <div class="team">TA-YAN<em>.</em>AI</div>
+      <nav aria-label="メイン">
+        <ul>
+          <li><a href="#profile">プロフィール</a></li>
+          <li><a href="#skills">スキル</a></li>
+          <li><a href="#projects">プロジェクト</a></li>
+          <li><a href="#contact">コンタクト</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <div class="hero">
+    <div class="plate hero-circle-blue" aria-hidden="true"></div>
+    <div class="plate hero-circle-red" aria-hidden="true"></div>
+    <div class="plate hero-band off" aria-hidden="true"></div>
+    <div class="plate hero-band" aria-hidden="true"></div>
+    <div class="hero-dots" aria-hidden="true"></div>
+    <div class="bib" aria-hidden="true">35</div>
+
+    <div class="wrap hero-inner">
+      <p class="varsity-tag"><span>Software Engineer — Yamaguchi, JP</span></p>
+      <div class="title-stack">
+        <span class="title red-plate" aria-hidden="true">柳井 建人</span>
+        <h1 class="title blue-plate">柳井 建人</h1>
+      </div>
+      <p class="name-en">Taketo <b>Yanai</b></p>
+      <p class="hero-copy">困っている人の<strong>「それ欲しかった」</strong>を作りたい</p>
+      <p class="hero-meta">
+        <span><span class="dot">●</span> SOFTWARE ENGINEER</span>
+        <span><span class="dot">●</span> YAMAGUCHI, JAPAN</span>
+        <span><span class="dot">●</span> TA-YAN.AI</span>
+      </p>
+    </div>
+
+    <div class="hero-strip" aria-hidden="true">
+      <span>2-Color Risograph: Blue x Fluo Red</span>
+      <span>No.35 = Yamaguchi Pref. Code</span>
+      <span>Printed in Yamaguchi, Japan</span>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ================= PROFILE ================= -->
+    <section id="profile" aria-labelledby="profile-title">
+      <div class="side-dots" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-no">Sec. 01</span>
+          <h2 class="sec-title" data-text="Profile" id="profile-title">Profile<span class="sec-title-ja">プロフィール</span></h2>
+        </div>
+
+        <div class="roster">
+          <div class="roster-bio">
+            <p class="roster-lede">山口県のシステムエンジニアです。様々な技術を勉強中です。</p>
+            <p>システム開発とウェブ技術に関心を持ち、常に最新の技術トレンドをキャッチアップしながら、実務経験を活かした質の高いソリューションを提供することを目指しています。</p>
+          </div>
+
+          <div class="resume">
+            <div class="resume-head">
+              <span class="resume-title">履歴書</span>
+              <span class="resume-date">　　年　　月　　日現在</span>
+            </div>
+            <div class="resume-body">
+              <div class="resume-names">
+                <div class="furigana"><span class="lbl">ふりがな</span>やない　たけと</div>
+                <div class="shimei"><span class="lbl">氏　名</span>柳井 建人</div>
+              </div>
+              <div class="resume-photo" aria-hidden="true">
+                <span class="yt">YT</span>
+                <span class="ph">写真</span>
+              </div>
+              <table class="resume-rows">
+                <tbody>
+                  <tr>
+                    <th scope="row">職種</th>
+                    <td>ソフトウェアエンジニア</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">現住所</th>
+                    <td>山口県</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Web</th>
+                    <td><a href="https://www.ta-yan.ai/" target="_blank" rel="noopener">https://www.ta-yan.ai/</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">GitHub</th>
+                    <td><a href="https://github.com/Yanai-Taketo" target="_blank" rel="noopener">github.com/Yanai-Taketo</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section id="skills" aria-labelledby="skills-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-no">Sec. 02</span>
+          <h2 class="sec-title" data-text="Skills" id="skills-title">Skills<span class="sec-title-ja">スキル</span></h2>
+        </div>
+
+        <div class="badge-grid">
+          <article class="punch-card">
+            <div class="punch-head">
+              <h3 class="punch-title">業務システム開発<span class="en">Business Systems</span></h3>
+              <span class="punch-form">TA-YAN 5081 / C-01</span>
+            </div>
+            <ul class="punch-rows">
+              <li class="star">C#<span class="holes" aria-hidden="true"><i></i><i class="g"></i><i></i><i></i><i class="g"></i><i></i></span></li>
+              <li class="star">VB.NET<span class="holes" aria-hidden="true"><i></i><i></i><i class="g"></i><i></i><i class="g"></i><i></i></span></li>
+              <li>.NET<span class="holes" aria-hidden="true"><i></i><i class="g"></i><i class="g"></i><i></i><i></i><i class="g"></i></span></li>
+              <li>.NET Framework<span class="holes" aria-hidden="true"><i class="g"></i><i></i><i></i><i class="g"></i><i></i><i></i></span></li>
+              <li>WPF<span class="holes" aria-hidden="true"><i></i><i></i><i class="g"></i><i class="g"></i><i></i><i class="g"></i></span></li>
+              <li>WinForms<span class="holes" aria-hidden="true"><i class="g"></i><i></i><i class="g"></i><i></i><i class="g"></i><i></i></span></li>
+              <li class="star">C<span class="holes" aria-hidden="true"><i></i><i class="g"></i><i></i><i class="g"></i><i class="g"></i><i></i></span></li>
             </ul>
+            <div class="punch-digits" aria-hidden="true">0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9</div>
+          </article>
+
+          <article class="punch-card">
+            <div class="punch-head">
+              <h3 class="punch-title">データベース<span class="en">Database</span></h3>
+              <span class="punch-form">TA-YAN 5081 / C-02</span>
+            </div>
+            <ul class="punch-rows">
+              <li class="star">SQL Server<span class="holes" aria-hidden="true"><i></i><i></i><i class="g"></i><i></i><i class="g"></i><i></i></span></li>
+              <li>Oracle<span class="holes" aria-hidden="true"><i class="g"></i><i></i><i></i><i class="g"></i><i></i><i></i></span></li>
+              <li>MySQL<span class="holes" aria-hidden="true"><i></i><i class="g"></i><i></i><i></i><i class="g"></i><i class="g"></i></span></li>
+              <li>PostgreSQL<span class="holes" aria-hidden="true"><i></i><i></i><i class="g"></i><i class="g"></i><i></i><i></i></span></li>
+            </ul>
+            <div class="punch-digits" aria-hidden="true">0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9</div>
+          </article>
+
+          <article class="punch-card">
+            <div class="punch-head">
+              <h3 class="punch-title">ウェブ開発<span class="en">Web Development</span></h3>
+              <span class="punch-form">TA-YAN 5081 / C-03</span>
+            </div>
+            <ul class="punch-rows">
+              <li>JavaScript<span class="holes" aria-hidden="true"><i></i><i class="g"></i><i></i><i></i><i class="g"></i><i></i></span></li>
+              <li>React<span class="holes" aria-hidden="true"><i class="g"></i><i></i><i class="g"></i><i></i><i></i><i class="g"></i></span></li>
+              <li>Node.js<span class="holes" aria-hidden="true"><i></i><i></i><i class="g"></i><i></i><i class="g"></i><i></i></span></li>
+              <li>PHP<span class="holes" aria-hidden="true"><i></i><i class="g"></i><i></i><i class="g"></i><i></i><i class="g"></i></span></li>
+              <li class="star">WordPress<span class="holes" aria-hidden="true"><i class="g"></i><i></i><i></i><i class="g"></i><i class="g"></i><i></i></span></li>
+            </ul>
+            <div class="punch-digits" aria-hidden="true">0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9</div>
+          </article>
+
+          <article class="punch-card">
+            <div class="punch-head">
+              <h3 class="punch-title">インフラ・ネットワーク<span class="en">Infra &amp; Network</span></h3>
+              <span class="punch-form">TA-YAN 5081 / C-04</span>
+            </div>
+            <ul class="punch-rows">
+              <li class="star">Proxmox VE<span class="holes" aria-hidden="true"><i></i><i></i><i class="g"></i><i></i><i class="g"></i><i></i></span></li>
+              <li>Docker<span class="holes" aria-hidden="true"><i class="g"></i><i></i><i></i><i class="g"></i><i></i><i class="g"></i></span></li>
+              <li>WireGuard<span class="holes" aria-hidden="true"><i></i><i class="g"></i><i></i><i></i><i class="g"></i><i></i></span></li>
+              <li>Tailscale<span class="holes" aria-hidden="true"><i></i><i></i><i class="g"></i><i class="g"></i><i></i><i></i></span></li>
+              <li>Linux<span class="holes" aria-hidden="true"><i class="g"></i><i></i><i class="g"></i><i></i><i></i><i class="g"></i></span></li>
+            </ul>
+            <div class="punch-digits" aria-hidden="true">0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9</div>
+          </article>
         </div>
-    </nav>
+      </div>
+    </section>
 
-    <!-- ヒーロー -->
-    <header class="hero" id="top">
-        <div class="wrap hero-content">
-            <div class="hero-meta reveal in">
-                <span class="label">Portfolio</span>
-                <span class="rule"></span>
-                <span class="label">ta-yan.ai</span>
-            </div>
-            <h1 class="reveal in">柳井 建人</h1>
-            <div class="hero-en reveal in">Taketo Yanai <span class="accent">—</span> Software Engineer, Yamaguchi Japan</div>
-            <p class="hero-lead reveal in">
-                システム開発とウェブ技術に関心を持ち、常に最新の技術トレンドをキャッチアップしながら、実務経験を活かした質の高いソリューションを提供することを目指しています。
-            </p>
-            <div class="hero-vertical">ソフトウェア エンジニア</div>
+    <!-- ================= PROJECTS ================= -->
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-no">Sec. 03</span>
+          <h2 class="sec-title" data-text="Projects" id="projects-title">Projects<span class="sec-title-ja">プロジェクト</span></h2>
         </div>
-        <div class="wrap hero-scroll">
-            <span class="line"></span>
-            <span class="label">Scroll</span>
+
+        <div class="printout">
+          <div class="sprocket l" aria-hidden="true"></div>
+          <div class="print-body">
+            <div class="print-meta" aria-hidden="true">
+              <span>TA-YAN.AI — JOB LOG</span>
+              <span>PAGE 001</span>
+            </div>
+
+            <article class="job">
+              <div class="job-head">
+                <span>JOB 0001</span>
+                <span>DATE: 2022 / STATUS: RUNNING</span>
+              </div>
+              <h3><a href="https://techlog.ta-yan.ai/" target="_blank" rel="noopener">テックろぐ</a></h3>
+              <p class="desc">技術情報やナレッジを共有するための個人ブログ。最新のプログラミングトレンドやマイクロソフト技術に関する投稿を掲載しています。</p>
+              <div class="tech">TECH: WordPress / PHP / MySQL</div>
+              <a class="jump" href="https://techlog.ta-yan.ai/" target="_blank" rel="noopener">techlog.ta-yan.ai →</a>
+            </article>
+
+            <article class="job">
+              <div class="job-head">
+                <span>JOB 0002</span>
+                <span>DATE: 2025 / STATUS: RELEASED</span>
+              </div>
+              <h3><a href="https://odv.dev" target="_blank" rel="noopener">OraDB DUMP Viewer</a></h3>
+              <p class="desc">Oracle データベースのエクスポートファイル（DUMPファイル）を Oracle 未導入の環境で閲覧・検索・エクスポートできる Windows デスクトップアプリケーション。</p>
+              <div class="tech">TECH: C# / .NET / WPF</div>
+              <a class="jump" href="https://odv.dev" target="_blank" rel="noopener">odv.dev →</a>
+            </article>
+
+            <article class="job">
+              <div class="job-head">
+                <span>JOB 0003</span>
+                <span>DATE: 2025 / STATUS: RELEASED</span>
+              </div>
+              <h3><a href="https://github.com/Yanai-Taketo/NTPilot" target="_blank" rel="noopener">NTPilot</a></h3>
+              <p class="desc">Windows の時刻同期サービス（W32Time）を管理するための軽量な GUI ツール。ステータス確認、NTP サーバー設定、ダーク/ライトモード対応、多言語対応など。</p>
+              <div class="tech">TECH: VB.NET / .NET Framework / WinForms</div>
+              <a class="jump" href="https://github.com/Yanai-Taketo/NTPilot" target="_blank" rel="noopener">github.com/Yanai-Taketo/NTPilot →</a>
+            </article>
+
+            <article class="job">
+              <div class="job-head">
+                <span>JOB 0004</span>
+                <span>DATE: 2026 / STATUS: IN DEVELOPMENT</span>
+              </div>
+              <h3><a href="https://github.com/Yanai-Taketo/Yagura" target="_blank" rel="noopener">Yagura</a> <span class="wip">開発中</span></h3>
+              <p class="desc">Windows に syslog サーバを手軽に構築できるオープンソースツール。ログの受信・保存・閲覧・通知に特化し、TLS 受信や Active Directory 認証、組み込み DB から SQL Server への切り替えに対応予定。</p>
+              <div class="tech">TECH: C# / .NET / SQL Server</div>
+              <a class="jump" href="https://github.com/Yanai-Taketo/Yagura" target="_blank" rel="noopener">github.com/Yanai-Taketo/Yagura →</a>
+            </article>
+          </div>
+          <div class="sprocket r" aria-hidden="true"></div>
         </div>
-    </header>
+      </div>
+    </section>
 
-    <main>
-        <!-- プロフィール -->
-        <section id="profile">
-            <div class="wrap">
-                <div class="section-head reveal">
-                    <span class="num">01</span>
-                    <h2>プロフィール</h2>
-                    <span class="label">Profile</span>
-                </div>
-                <div class="profile-grid">
-                    <div class="profile-side reveal">
-                        困っている人の<br>「それ欲しかった」を作りたい
-                        <small>Yanai Taketo</small>
-                    </div>
-                    <div class="profile-body reveal">
-                        <p>山口県のシステムエンジニアです。様々な技術を勉強中です。</p>
-                        <p>システム開発とウェブ技術に関心を持ち、常に最新の技術トレンドをキャッチアップしながら、実務経験を活かした質の高いソリューションを提供することを目指しています。</p>
-                        <dl class="profile-facts">
-                            <div>
-                                <dt>Name</dt>
-                                <dd>柳井 建人（YANAI Taketo）</dd>
-                            </div>
-                            <div>
-                                <dt>Role</dt>
-                                <dd>ソフトウェアエンジニア</dd>
-                            </div>
-                            <div>
-                                <dt>Location</dt>
-                                <dd>山口県</dd>
-                            </div>
-                            <div>
-                                <dt>Web</dt>
-                                <dd><a href="https://www.ta-yan.ai/">www.ta-yan.ai</a></dd>
-                            </div>
-                            <div>
-                                <dt>GitHub</dt>
-                                <dd><a href="https://github.com/Yanai-Taketo" target="_blank" rel="noopener">github.com/Yanai-Taketo</a></dd>
-                            </div>
-                        </dl>
-                    </div>
-                </div>
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="band-bg" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-no">Sec. 04</span>
+          <h2 class="sec-title" data-text="Contact" id="contact-title">Contact<span class="sec-title-ja">お問い合わせ</span></h2>
+        </div>
+
+        <article class="pass" aria-label="搭乗券型コンタクト">
+          <div class="main">
+            <div class="band">
+              <span class="airline">YANAI AIRWAYS</span>
+              <span class="bp">BOARDING PASS / 搭乗券</span>
             </div>
-        </section>
+            <div class="inner">
+              <div class="grid-top">
+                <div class="field">
+                  <span class="lb">Passenger / 搭乗者</span>
+                  <span class="val">YANAI TAKETO <small>柳井 建人</small></span>
+                </div>
+                <div class="field">
+                  <span class="lb">Class / 職種</span>
+                  <span class="val jp">ソフトウェアエンジニア</span>
+                </div>
+                <div class="field">
+                  <span class="lb">Flight</span>
+                  <span class="val">TY 026</span>
+                </div>
+                <div class="field">
+                  <span class="lb">Seat</span>
+                  <span class="val">1A</span>
+                </div>
+              </div>
 
-        <!-- スキル -->
-        <section id="skills">
-            <div class="wrap">
-                <div class="section-head reveal">
-                    <span class="num">02</span>
-                    <h2>スキル</h2>
-                    <span class="label">Skills</span>
+              <div class="route">
+                <div class="apt">
+                  <div class="code">YGC</div>
+                  <div class="city">FROM: YAMAGUCHI / 山口</div>
                 </div>
-                <div class="skills-grid">
-                    <div class="skill-col reveal">
-                        <span class="num">a.</span>
-                        <h3>業務システム開発</h3>
-                        <ul>
-                            <li>C#</li>
-                            <li>VB.NET</li>
-                            <li>.NET / .NET Framework</li>
-                            <li>WPF</li>
-                            <li>WinForms</li>
-                            <li>C</li>
-                        </ul>
-                    </div>
-                    <div class="skill-col reveal">
-                        <span class="num">b.</span>
-                        <h3>データベース</h3>
-                        <ul>
-                            <li>SQL Server</li>
-                            <li>Oracle</li>
-                            <li>MySQL</li>
-                            <li>PostgreSQL</li>
-                        </ul>
-                    </div>
-                    <div class="skill-col reveal">
-                        <span class="num">c.</span>
-                        <h3>ウェブ開発</h3>
-                        <ul>
-                            <li>JavaScript</li>
-                            <li>React</li>
-                            <li>Node.js</li>
-                            <li>PHP</li>
-                            <li>WordPress</li>
-                        </ul>
-                    </div>
-                    <div class="skill-col reveal">
-                        <span class="num">d.</span>
-                        <h3>インフラ・ネットワーク</h3>
-                        <ul>
-                            <li>Proxmox VE</li>
-                            <li>Docker</li>
-                            <li>WireGuard</li>
-                            <li>Tailscale</li>
-                            <li>Linux</li>
-                        </ul>
-                    </div>
+                <div class="plane" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M2 16l19-9-6 9 6 1.5-3 2.5-16-4z" fill="#12395e"/></svg>
                 </div>
-            </div>
-        </section>
+                <div class="apt" style="text-align:right;">
+                  <div class="code">NXT</div>
+                  <div class="city">TO: NEXT PROJECT / 次の現場</div>
+                </div>
+              </div>
 
-        <!-- プロジェクト -->
-        <section id="projects">
-            <div class="wrap">
-                <div class="section-head reveal">
-                    <span class="num">03</span>
-                    <h2>プロジェクト</h2>
-                    <span class="label">Projects</span>
+              <div class="info">
+                <div class="field">
+                  <span class="lb">Gate</span>
+                  <span class="val">MAIL</span>
                 </div>
-                <div class="project-list">
-                    <a class="project-row reveal" href="https://techlog.ta-yan.ai/" target="_blank" rel="noopener">
-                        <span class="year">2022</span>
-                        <div>
-                            <h3>テックろぐ</h3>
-                            <p>技術情報やナレッジを共有するための個人ブログ。最新のプログラミングトレンドやマイクロソフト技術に関する投稿を掲載しています。</p>
-                            <div class="tech">WordPress / PHP / MySQL</div>
-                        </div>
-                        <span class="arrow">↗</span>
-                    </a>
-                    <a class="project-row reveal" href="https://odv.dev" target="_blank" rel="noopener">
-                        <span class="year">2025</span>
-                        <div>
-                            <h3>OraDB DUMP Viewer</h3>
-                            <p>Oracle データベースのエクスポートファイル（DUMPファイル）を Oracle 未導入の環境で閲覧・検索・エクスポートできる Windows デスクトップアプリケーション。</p>
-                            <div class="tech">C# / .NET / WPF</div>
-                        </div>
-                        <span class="arrow">↗</span>
-                    </a>
-                    <a class="project-row reveal" href="https://github.com/Yanai-Taketo/NTPilot" target="_blank" rel="noopener">
-                        <span class="year">2025</span>
-                        <div>
-                            <h3>NTPilot</h3>
-                            <p>Windows の時刻同期サービス（W32Time）を管理するための軽量な GUI ツール。ステータス確認、NTP サーバー設定、ダーク/ライトモード対応、多言語対応など。</p>
-                            <div class="tech">VB.NET / .NET Framework / WinForms</div>
-                        </div>
-                        <span class="arrow">↗</span>
-                    </a>
+                <div class="field">
+                  <span class="lb">Location / 所在地</span>
+                  <span class="val jp">山口県</span>
                 </div>
-            </div>
-        </section>
+                <div class="field">
+                  <span class="lb">Web</span>
+                  <span class="val" style="font-size:13px;"><a href="https://www.ta-yan.ai/" target="_blank" rel="noopener">https://www.ta-yan.ai/</a></span>
+                </div>
+              </div>
 
-        <!-- コンタクト -->
-        <section id="contact">
-            <div class="wrap">
-                <div class="section-head reveal">
-                    <span class="num">04</span>
-                    <h2>お問い合わせ</h2>
-                    <span class="label">Contact</span>
-                </div>
-                <p class="contact-lead reveal">
-                    ご質問、ご提案、またはお仕事のご依頼など、お気軽にお問い合わせください。
+              <div class="remarks">
+                <span class="lb">REMARKS / 備考</span>
+                <p>「それ欲しかった」を、一緒に作りませんか。</p>
+              </div>
+
+              <div class="pax-note">
+                <span class="cap">CONTACT / お仕事のご相談・ご連絡はこちら</span>
+                <p>
+                  Mail: <a href="mailto:inquiry@ta-yan.ai">inquiry@ta-yan.ai</a><br>
+                  GitHub: <a href="https://github.com/Yanai-Taketo" target="_blank" rel="noopener">github.com/Yanai-Taketo</a>　／　X (Twitter): <a href="https://x.com/YANAITaketo" target="_blank" rel="noopener">@YANAITaketo</a>
                 </p>
-                <a class="contact-mail reveal" href="mailto:inquiry@ta-yan.ai">inquiry@ta-yan.ai</a>
-                <div class="contact-sub reveal">
-                    <a href="https://github.com/Yanai-Taketo" target="_blank" rel="noopener">GitHub</a>
-                    <a href="https://x.com/YANAITaketo" target="_blank" rel="noopener">X (Twitter)</a>
-                </div>
+              </div>
             </div>
-        </section>
-    </main>
+          </div>
 
-    <!-- フッター -->
-    <footer class="footer">
-        <div class="wrap footer-inner">
-            <span>© <span id="year">2025</span> YANAi Taketo. All rights reserved.</span>
-            <span>Yamaguchi, Japan</span>
-        </div>
-    </footer>
+          <div class="perf" role="presentation"></div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // フッターの年
-            document.getElementById('year').textContent = new Date().getFullYear();
+          <aside class="stub" aria-label="半券">
+            <div class="band"><span class="airline">YANAI AIRWAYS</span></div>
+            <div class="inner">
+              <div class="field"><span class="lb">Passenger</span><span class="val">YANAI TAKETO</span></div>
+              <div class="field"><span class="lb">Flight</span><span class="val">TY 026</span></div>
+              <div class="field"><span class="lb">Seat</span><span class="val">1A</span></div>
+              <div class="field"><span class="lb">Gate</span><span class="val">MAIL</span></div>
+              <div class="barcode" role="presentation"></div>
+              <div class="num">TY026 YGC-NXT</div>
+            </div>
+          </aside>
+        </article>
+      </div>
+    </section>
+  </main>
 
-            // スクロールでナビに罫線
-            const nav = document.getElementById('nav');
-            const onScroll = function () {
-                nav.classList.toggle('scrolled', window.scrollY > 8);
-            };
-            window.addEventListener('scroll', onScroll, { passive: true });
-            onScroll();
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-foot">
+    <div class="wrap">
+      <small>&copy; 2026 YANAi Taketo. All rights reserved.</small>
+      <span class="ink-note" aria-hidden="true">INK: BLUE #0078BF <span class="r">/ FLUO RED #FF4A1E</span> — 2-COLOR RISO</span>
+    </div>
+  </footer>
 
-            // リビール
-            const reveals = document.querySelectorAll('.reveal:not(.in)');
-            if ('IntersectionObserver' in window) {
-                const io = new IntersectionObserver(function (entries) {
-                    entries.forEach(function (entry) {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('in');
-                            io.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                reveals.forEach(function (el) { io.observe(el); });
-            } else {
-                reveals.forEach(function (el) { el.classList.add('in'); });
-            }
-
-            // ナビの現在地
-            const navLinks = document.querySelectorAll('.nav-links a');
-            const sectionIO = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach(function (link) {
-                            link.classList.toggle('active', entry.target.id !== 'top' && link.getAttribute('href') === '#' + entry.target.id);
-                        });
-                    }
-                });
-            }, { rootMargin: '-30% 0px -60% 0px' });
-            ['top', 'profile', 'skills', 'projects', 'contact'].forEach(function (id) {
-                const sec = document.getElementById(id);
-                if (sec) sectionIO.observe(sec);
-            });
-
-            // URLハッシュでセクション指定して開けるように
-            if (location.hash) {
-                const target = document.querySelector(location.hash);
-                if (target) {
-                    setTimeout(function () {
-                        target.scrollIntoView({ behavior: 'auto', block: 'start' });
-                    }, 50);
-                }
-            }
-        });
-    </script>
+  <div class="grain" aria-hidden="true"></div>
 </body>
 </html>
