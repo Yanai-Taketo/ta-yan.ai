@@ -4,1576 +4,889 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YANAi Taketo - Portfolio</title>
+    <meta name="description" content="山口県のソフトウェアエンジニア 柳井建人のポートフォリオサイト。スキル、プロジェクト、連絡先情報を掲載しています。">
+    <meta property="og:title" content="YANAi Taketo - Portfolio">
+    <meta property="og:description" content="山口県のソフトウェアエンジニア 柳井建人のポートフォリオサイト">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.ta-yan.ai/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* ===== グローバルスタイル ===== */
+        :root {
+            --paper: #f6f4ef;
+            --ink: #1c1b18;
+            --ink-soft: #55534d;
+            --ink-faint: #8b8880;
+            --line: rgba(28, 27, 24, 0.14);
+            --line-strong: rgba(28, 27, 24, 0.5);
+            --accent: #c2401f;
+            --serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+            --sans: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+            --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            /* Microsoft Teams カラーパレット */
-            --primary-blue: #0078d4;
-            --primary-blue-hover: #106ebe;
-            --light-blue: #e7f3ff;
-            --white: #ffffff;
-            --gray-50: #f8f9fa;
-            --gray-100: #f3f3f3;
-            --gray-200: #e5e5e5;
-            --gray-300: #d1d1d1;
-            --gray-400: #a19f9d;
-            --gray-500: #605e5c;
-            --dark-gray: #323130;
-            --message-bg: #f0f0f0;
-
-            /* グラデーション */
-            --gradient-primary: linear-gradient(135deg, #0078d4 0%, #1687d9 100%);
-
-            /* シャドウ */
-            --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12);
-            --shadow-2: 0 4px 8px rgba(0, 0, 0, 0.15);
-
-            /* フォント */
-            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-        }
-
-        html, body {
-            height: 100%;
-            font-family: var(--font-main);
-            background: var(--white);
-            color: var(--dark-gray);
-            overflow: hidden;
-        }
-
-        /* ===== メインレイアウト ===== */
-        .container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        .header {
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-200);
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: var(--shadow-1);
-            flex-shrink: 0;
-        }
-
-        .logo {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--primary-blue);
-        }
-
-        .main-content {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        /* ===== サイドバー（会話リスト） ===== */
-        .sidebar {
-            width: 320px;
-            background: var(--white);
-            border-right: 1px solid var(--gray-200);
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 0;
-            overflow-y: auto;
-        }
-
-        .sidebar-search {
-            padding: 12px 16px;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid var(--gray-200);
-            border-radius: 20px;
-            font-size: 13px;
-            background: var(--gray-50);
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .search-box:focus {
-            background: var(--white);
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1);
-        }
-
-        .sidebar-section-title {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: var(--gray-400);
-            padding: 8px 16px;
-            letter-spacing: 0.5px;
-            margin-top: 8px;
-        }
-
-        .sidebar-list {
-            list-style: none;
-        }
-
-        .sidebar-item {
-            padding: 8px 12px;
-            margin: 0 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--gray-500);
-            font-size: 13px;
-            transition: all 0.2s ease;
-        }
-
-        .sidebar-item:hover {
-            background: var(--gray-100);
-            color: var(--dark-gray);
-        }
-
-        .sidebar-item.active {
-            background: var(--light-blue);
-            color: var(--primary-blue);
-            font-weight: 500;
-        }
-
-        .sidebar-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            background: var(--gray-100);
-            flex-shrink: 0;
-        }
-
-        .sidebar-item.active .sidebar-icon {
-            background: var(--primary-blue);
-            color: white;
-        }
-
-        /* ===== チャットエリア ===== */
-        .chat-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: var(--white);
-            overflow: hidden;
-        }
-
-        .chat-header {
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-200);
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
-        }
-
-        .chat-header-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 6px;
-            background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
-
-        .chat-header-content h2 {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--dark-gray);
-            margin: 0;
-        }
-
-        .chat-header-content p {
-            font-size: 12px;
-            color: var(--gray-500);
-            margin: 2px 0 0 0;
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .chat-pane {
-            display: none;
-        }
-
-        .chat-pane.active {
-            display: block;
-            animation: paneFadeIn 0.4s ease;
-        }
-
-        @keyframes paneFadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes messageSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes avatarPopIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes bubbleFadeIn {
-            from {
-                opacity: 0;
-                transform: translateX(-8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes typeWriter {
-            from {
-                clip-path: inset(0 100% 0 0);
-            }
-            to {
-                clip-path: inset(0 0 0 0);
-            }
-        }
-
-        @keyframes cursorBlink {
-            0%, 49% {
-                border-right-color: var(--primary-blue);
-            }
-            50%, 100% {
-                border-right-color: transparent;
-            }
-        }
-
-        @keyframes typingPulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.6;
-            }
-        }
-
-        @keyframes typingDot {
-            0%, 20% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            50%, 100% {
-                opacity: 0.4;
-                transform: translateY(-2px);
-            }
-        }
-
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .message-group {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 8px;
-            animation: messageSlideIn 0.4s ease-out backwards;
-        }
-
-        .message-group:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .message-group:nth-child(2) {
-            animation-delay: 0.12s;
-        }
-
-        .message-group:nth-child(3) {
-            animation-delay: 0.24s;
-        }
-
-        .message-group:nth-child(4) {
-            animation-delay: 0.36s;
-        }
-
-        .message-group:nth-child(5) {
-            animation-delay: 0.48s;
-        }
-
-        .message-group:nth-child(n+6) {
-            opacity: 0;
-            animation: none;
-        }
-
-        .chat-pane.active .message-group:nth-child(n+6) {
-            opacity: 1;
-            animation: messageSlideIn 0.4s ease-out backwards;
-        }
-
-        .chat-pane.active .message-group:nth-child(6) {
-            animation-delay: 0.6s;
-        }
-
-        .chat-pane.active .message-group:nth-child(7) {
-            animation-delay: 0.72s;
-        }
-
-        .chat-pane.active .message-group:nth-child(8) {
-            animation-delay: 0.84s;
-        }
-
-        .chat-pane.active .message-group:nth-child(9) {
-            animation-delay: 0.96s;
-        }
-
-        .chat-pane.active .message-group:nth-child(10) {
-            animation-delay: 1.08s;
-        }
-
-        .message-group {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 8px;
-        }
-
-        .message-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 6px;
-            background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            flex-shrink: 0;
-            animation: avatarPopIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) backwards;
-        }
-
-        .message-group:nth-child(1) .message-avatar {
-            animation-delay: 0.1s;
-        }
-
-        .message-group:nth-child(2) .message-avatar {
-            animation-delay: 0.22s;
-        }
-
-        .message-group:nth-child(3) .message-avatar {
-            animation-delay: 0.34s;
-        }
-
-        .message-group:nth-child(4) .message-avatar {
-            animation-delay: 0.46s;
-        }
-
-        .message-group:nth-child(5) .message-avatar {
-            animation-delay: 0.58s;
-        }
-
-        .chat-pane.active .message-group:nth-child(6) .message-avatar {
-            animation-delay: 0.7s;
-        }
-
-        .chat-pane.active .message-group:nth-child(7) .message-avatar {
-            animation-delay: 0.82s;
-        }
-
-        .chat-pane.active .message-group:nth-child(8) .message-avatar {
-            animation-delay: 0.94s;
-        }
-
-        .chat-pane.active .message-group:nth-child(9) .message-avatar {
-            animation-delay: 1.06s;
-        }
-
-        .chat-pane.active .message-group:nth-child(10) .message-avatar {
-            animation-delay: 1.18s;
-        }
-
-        .message-content {
-            flex: 1;
-        }
-
-        .message-header {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-            margin-bottom: 4px;
-        }
-
-        .message-author {
-            font-weight: 600;
-            color: var(--dark-gray);
-            font-size: 13px;
-        }
-
-        .message-time {
-            font-size: 12px;
-            color: var(--gray-400);
-        }
-
-        .typing-indicator {
-            background: var(--message-bg);
-            padding: 12px 16px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            width: fit-content;
-            font-size: 13px;
-            color: var(--gray-500);
-            opacity: 1;
-            animation:
-                bubbleFadeIn 0.35s ease-out backwards,
-                typingPulse 1s ease-in-out infinite backwards;
-            transition: opacity 0.3s ease-out;
-        }
-
-        .typing-indicator.fade-out {
-            opacity: 0;
-        }
-
-        .typing-indicator-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--primary-blue);
-            animation: typingDot 1.4s ease-in-out infinite;
-        }
-
-        .typing-indicator-dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-indicator-dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        .message-group:nth-child(1) .typing-indicator {
-            animation-delay: 0.15s, 0.2s;
-        }
-
-        .message-group:nth-child(2) .typing-indicator {
-            animation-delay: 0.27s, 0.32s;
-        }
-
-        .message-group:nth-child(3) .typing-indicator {
-            animation-delay: 0.39s, 0.44s;
-        }
-
-        .message-group:nth-child(4) .typing-indicator {
-            animation-delay: 0.51s, 0.56s;
-        }
-
-        .message-group:nth-child(5) .typing-indicator {
-            animation-delay: 0.63s, 0.68s;
-        }
-
-        .message-text {
-            background: var(--message-bg);
-            padding: 12px 16px;
-            border-radius: 8px;
-            color: var(--dark-gray);
-            font-size: 13px;
-            line-height: 1.5;
-            word-wrap: break-word;
-            opacity: 0;
-            transition: opacity 0.35s ease-out;
-        }
-
-        .message-text.visible {
-            opacity: 1;
-        }
-
-        .message-group:nth-child(1) .message-text {
-            animation-delay: 0.15s, 0.3s;
-        }
-
-        .message-group:nth-child(2) .message-text {
-            animation-delay: 0.27s, 0.42s;
-        }
-
-        .message-group:nth-child(3) .message-text {
-            animation-delay: 0.39s, 0.54s;
-        }
-
-        .message-group:nth-child(4) .message-text {
-            animation-delay: 0.51s, 0.66s;
-        }
-
-        .message-group:nth-child(5) .message-text {
-            animation-delay: 0.63s, 0.78s;
-        }
-
-        .chat-pane.active .message-group:nth-child(6) .message-text {
-            animation-delay: 0.75s, 0.9s;
-        }
-
-        .chat-pane.active .message-group:nth-child(7) .message-text {
-            animation-delay: 0.87s, 1.02s;
-        }
-
-        .chat-pane.active .message-group:nth-child(8) .message-text {
-            animation-delay: 0.99s, 1.14s;
-        }
-
-        .chat-pane.active .message-group:nth-child(9) .message-text {
-            animation-delay: 1.11s, 1.26s;
-        }
-
-        .chat-pane.active .message-group:nth-child(10) .message-text {
-            animation-delay: 1.23s, 1.38s;
-        }
-
-        .message-text a {
-            color: var(--primary-blue);
-            text-decoration: none;
-        }
-
-        .message-text a:hover {
-            text-decoration: underline;
-        }
-
-        .message-text h3 {
-            margin: 8px 0 4px 0;
-            font-size: 14px;
-            color: var(--dark-gray);
-        }
-
-        .message-text ul {
-            margin: 8px 0;
-            padding-left: 20px;
-        }
-
-        .message-text li {
-            margin: 4px 0;
-        }
-
-        /* ===== カード風メッセージ ===== */
-        .card-message {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-left: 4px solid var(--primary-blue);
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
-            opacity: 0;
-            transition: opacity 0.35s ease-out;
-        }
-
-        .card-message.visible {
-            opacity: 1;
-        }
-
-        .card-message:hover {
-            box-shadow: 0 4px 12px rgba(0, 120, 212, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .message-group:nth-child(1) .card-message {
-            animation-delay: 0.15s, 0.3s;
-        }
-
-        .message-group:nth-child(2) .card-message {
-            animation-delay: 0.27s, 0.42s;
-        }
-
-        .message-group:nth-child(3) .card-message {
-            animation-delay: 0.39s, 0.54s;
-        }
-
-        .message-group:nth-child(4) .card-message {
-            animation-delay: 0.51s, 0.66s;
-        }
-
-        .message-group:nth-child(5) .card-message {
-            animation-delay: 0.63s, 0.78s;
-        }
-
-        .chat-pane.active .message-group:nth-child(6) .card-message {
-            animation-delay: 0.75s, 0.9s;
-        }
-
-        .chat-pane.active .message-group:nth-child(7) .card-message {
-            animation-delay: 0.87s, 1.02s;
-        }
-
-        .chat-pane.active .message-group:nth-child(8) .card-message {
-            animation-delay: 0.99s, 1.14s;
-        }
-
-        .chat-pane.active .message-group:nth-child(9) .card-message {
-            animation-delay: 1.11s, 1.26s;
-        }
-
-        .chat-pane.active .message-group:nth-child(10) .card-message {
-            animation-delay: 1.23s, 1.38s;
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 96px;
         }
 
-        .card-title {
-            font-weight: 600;
-            color: var(--dark-gray);
-            font-size: 14px;
-            margin-bottom: 8px;
+        body {
+            font-family: var(--sans);
+            font-weight: 400;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.9;
+            letter-spacing: 0.02em;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
 
-        .card-subtitle {
-            font-size: 12px;
-            color: var(--gray-500);
-            margin-bottom: 12px;
+        ::selection {
+            background: var(--ink);
+            color: var(--paper);
         }
 
-        .card-content {
-            color: var(--gray-500);
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 12px;
+        a {
+            color: inherit;
         }
 
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px;
+        .wrap {
+            width: min(1120px, calc(100% - 48px));
+            margin-inline: auto;
         }
 
-        .tag {
-            display: inline-block;
-            background: var(--light-blue);
-            color: var(--primary-blue);
-            padding: 3px 10px;
-            border-radius: 12px;
+        /* ===== ラベル（英文モノ） ===== */
+        .label {
+            font-family: var(--mono);
             font-size: 11px;
             font-weight: 500;
-        }
-
-        .card-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            transition: gap 0.2s ease;
-        }
-
-        .card-link:hover {
-            gap: 10px;
-        }
-
-        /* ===== スキルグリッド ===== */
-        .skill-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .skill-box {
-            background: var(--message-bg);
-            padding: 12px;
-            border-radius: 8px;
-            animation: messageSlideIn 0.4s ease-out backwards;
-            transition: all 0.2s ease;
-        }
-
-        .skill-box:hover {
-            background: var(--light-blue);
-            transform: translateY(-2px);
-        }
-
-        .skill-box:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        .skill-box:nth-child(2) {
-            animation-delay: 0.32s;
-        }
-
-        .skill-box:nth-child(3) {
-            animation-delay: 0.44s;
-        }
-
-        .skill-box:nth-child(4) {
-            animation-delay: 0.56s;
-        }
-
-        .skill-category-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--primary-blue);
+            letter-spacing: 0.22em;
             text-transform: uppercase;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-            animation: typeWriter 0.4s steps(30) ease-out backwards;
+            color: var(--ink-faint);
         }
 
-        .skill-box:nth-child(1) .skill-category-title {
-            animation-delay: 0.2s;
+        /* ===== ナビ ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(246, 244, 239, 0.88);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.4s ease;
         }
 
-        .skill-box:nth-child(2) .skill-category-title {
-            animation-delay: 0.32s;
+        .nav.scrolled {
+            border-bottom-color: var(--line);
         }
 
-        .skill-box:nth-child(3) .skill-category-title {
-            animation-delay: 0.44s;
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
         }
 
-        .skill-box:nth-child(4) .skill-category-title {
-            animation-delay: 0.56s;
+        .nav-name {
+            font-family: var(--serif);
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 0.06em;
+            text-decoration: none;
         }
 
-        .skill-list {
+        .nav-links {
+            display: flex;
+            gap: clamp(16px, 3vw, 36px);
             list-style: none;
         }
 
-        .skill-item {
+        .nav-links a {
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--ink-soft);
             padding: 4px 0;
-            color: var(--gray-500);
+            position: relative;
+            transition: color 0.25s ease;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--ink);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--ink);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* ===== ヒーロー ===== */
+        .hero {
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 68px;
+        }
+
+        .hero-content {
+            position: relative;
+            margin-block: auto;
+            padding-block: 40px;
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: baseline;
+            gap: 20px;
+            margin-bottom: clamp(28px, 5vh, 48px);
+        }
+
+        .hero-meta .rule {
+            flex: 0 0 48px;
+            height: 1px;
+            background: var(--line-strong);
+            align-self: center;
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-weight: 600;
+            font-size: clamp(56px, 11vw, 128px);
+            line-height: 1.12;
+            letter-spacing: 0.04em;
+            margin-bottom: clamp(20px, 4vh, 36px);
+        }
+
+        .hero-en {
+            font-family: var(--mono);
+            font-size: clamp(11px, 1.4vw, 13px);
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin-bottom: clamp(32px, 6vh, 56px);
+        }
+
+        .hero-en .accent {
+            color: var(--accent);
+        }
+
+        .hero-lead {
+            max-width: 34em;
+            font-size: 15px;
+            color: var(--ink-soft);
+        }
+
+        .hero-vertical {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            white-space: nowrap;
+            font-family: var(--serif);
             font-size: 13px;
+            letter-spacing: 0.42em;
+            color: var(--ink-faint);
+            border-left: 1px solid var(--line);
+            padding-left: 18px;
+        }
+
+        .hero-scroll {
             display: flex;
             align-items: center;
-            gap: 6px;
-            animation: typeWriter 0.35s steps(30) ease-out backwards;
+            gap: 14px;
+            padding-bottom: 40px;
         }
 
-        .skill-item:nth-child(2) {
-            animation-delay: 0.05s;
+        .hero-scroll .line {
+            width: 64px;
+            height: 1px;
+            background: var(--line-strong);
+            transform-origin: left;
+            animation: scrollLine 2.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
         }
 
-        .skill-item:nth-child(3) {
-            animation-delay: 0.1s;
+        @keyframes scrollLine {
+            0%   { transform: scaleX(0); transform-origin: left; }
+            45%  { transform: scaleX(1); transform-origin: left; }
+            55%  { transform: scaleX(1); transform-origin: right; }
+            100% { transform: scaleX(0); transform-origin: right; }
         }
 
-        .skill-item:nth-child(4) {
-            animation-delay: 0.15s;
+        /* ===== セクション共通 ===== */
+        section {
+            padding: clamp(88px, 14vh, 152px) 0 0;
         }
 
-        .skill-item:nth-child(5) {
-            animation-delay: 0.2s;
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            gap: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--line-strong);
+            margin-bottom: clamp(48px, 8vh, 80px);
         }
 
-        .skill-item:nth-child(6) {
-            animation-delay: 0.25s;
+        .section-head .num {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--accent);
+            letter-spacing: 0.1em;
         }
 
-        .skill-item::before {
-            content: '•';
-            color: var(--primary-blue);
-            font-weight: bold;
+        .section-head h2 {
+            font-family: var(--serif);
+            font-weight: 600;
+            font-size: clamp(26px, 3.6vw, 38px);
+            letter-spacing: 0.06em;
+            line-height: 1.3;
+        }
+
+        .section-head .label {
+            margin-left: auto;
+        }
+
+        /* ===== プロフィール ===== */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: clamp(32px, 6vw, 96px);
+        }
+
+        .profile-side {
+            font-family: var(--serif);
+            font-size: clamp(20px, 2.4vw, 26px);
+            font-weight: 500;
+            line-height: 2;
+            letter-spacing: 0.08em;
+        }
+
+        .profile-side small {
+            display: block;
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-top: 12px;
+        }
+
+        .profile-body p {
+            font-size: 15px;
+            color: var(--ink-soft);
+            max-width: 36em;
+        }
+
+        .profile-body p + p {
+            margin-top: 1.4em;
+        }
+
+        .profile-facts {
+            margin-top: clamp(32px, 5vh, 48px);
+            border-top: 1px solid var(--line);
+        }
+
+        .profile-facts div {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 14px;
+        }
+
+        .profile-facts dt {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            align-self: center;
+        }
+
+        .profile-facts dd a {
+            text-decoration: none;
+            border-bottom: 1px solid var(--line-strong);
+            transition: border-color 0.25s ease, color 0.25s ease;
+        }
+
+        .profile-facts dd a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* ===== スキル ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .skill-col {
+            padding: 4px clamp(16px, 2.5vw, 32px) 12px 0;
+        }
+
+        .skill-col + .skill-col {
+            border-left: 1px solid var(--line);
+            padding-left: clamp(16px, 2.5vw, 32px);
+        }
+
+        .skill-col .num {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--ink-faint);
+            letter-spacing: 0.1em;
+            display: block;
+            margin-bottom: 14px;
+        }
+
+        .skill-col h3 {
+            font-family: var(--serif);
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            margin-bottom: 18px;
+        }
+
+        .skill-col ul {
+            list-style: none;
+        }
+
+        .skill-col li {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--ink-soft);
+            padding: 7px 0;
+            border-bottom: 1px solid var(--line);
+            transition: color 0.2s ease, padding-left 0.25s ease;
+        }
+
+        .skill-col li:hover {
+            color: var(--ink);
+            padding-left: 6px;
+        }
+
+        /* ===== プロジェクト ===== */
+        .project-list {
+            border-top: 1px solid var(--line);
+            margin-top: -1px;
+        }
+
+        .project-row {
+            display: grid;
+            grid-template-columns: 88px 1fr auto;
+            gap: clamp(20px, 4vw, 56px);
+            align-items: baseline;
+            padding: clamp(28px, 4.5vh, 44px) 0;
+            border-bottom: 1px solid var(--line);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .project-row .year {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--ink-faint);
+            letter-spacing: 0.08em;
+        }
+
+        .project-row h3 {
+            font-family: var(--serif);
+            font-weight: 600;
+            font-size: clamp(22px, 3vw, 32px);
+            letter-spacing: 0.04em;
+            line-height: 1.4;
+            display: inline;
+            background-image: linear-gradient(var(--ink), var(--ink));
+            background-repeat: no-repeat;
+            background-position: 0 100%;
+            background-size: 0% 1px;
+            transition: background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .project-row:hover h3 {
+            background-size: 100% 1px;
+        }
+
+        .project-row p {
+            font-size: 14px;
+            color: var(--ink-soft);
+            max-width: 38em;
+            margin-top: 10px;
+        }
+
+        .project-row .tech {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            color: var(--ink-faint);
+            margin-top: 12px;
+        }
+
+        .project-row .arrow {
+            font-family: var(--mono);
+            font-size: 18px;
+            color: var(--ink-faint);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease;
+        }
+
+        .project-row:hover .arrow {
+            transform: translate(6px, -6px);
+            color: var(--accent);
+        }
+
+        /* ===== コンタクト ===== */
+        .contact-lead {
+            font-size: 15px;
+            color: var(--ink-soft);
+            max-width: 36em;
+            margin-bottom: clamp(40px, 7vh, 64px);
+        }
+
+        .contact-mail {
+            display: inline-block;
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: clamp(26px, 5.5vw, 56px);
+            letter-spacing: 0.03em;
+            text-decoration: none;
+            line-height: 1.3;
+            background-image: linear-gradient(var(--accent), var(--accent));
+            background-repeat: no-repeat;
+            background-position: 0 100%;
+            background-size: 100% 1px;
+            transition: color 0.3s ease, background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .contact-mail:hover {
+            color: var(--accent);
+            background-size: 100% 2px;
+        }
+
+        .contact-sub {
+            margin-top: clamp(32px, 5vh, 48px);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 40px;
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            color: var(--ink-faint);
+        }
+
+        .contact-sub a {
+            text-decoration: none;
+            border-bottom: 1px solid var(--line-strong);
+            transition: color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .contact-sub a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
         }
 
         /* ===== フッター ===== */
         .footer {
-            background: var(--gray-50);
-            border-top: 1px solid var(--gray-200);
-            padding: 12px 20px;
-            text-align: center;
+            margin-top: clamp(88px, 14vh, 152px);
+            border-top: 1px solid var(--line-strong);
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 24px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 0;
+            font-family: var(--mono);
             font-size: 11px;
-            color: var(--gray-500);
-            flex-shrink: 0;
+            letter-spacing: 0.14em;
+            color: var(--ink-faint);
         }
 
-        /* ===== スクロールバー ===== */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        /* ===== リビール ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--gray-300);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gray-400);
+        .reveal.in {
+            opacity: 1;
+            transform: none;
         }
 
         /* ===== レスポンシブ ===== */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 200px;
+        @media (max-width: 900px) {
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
+                row-gap: 40px;
             }
 
-            .chat-messages {
-                padding: 16px 20px;
+            .skill-col:nth-child(3) {
+                border-left: none;
+                padding-left: 0;
             }
 
-            .skill-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header {
-                padding: 10px 16px;
-            }
-
-            .title {
-                font-size: 14px;
-            }
-
-            .chat-header {
-                padding: 10px 16px;
-            }
-
-            .chat-header-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 16px;
-            }
-
-            .chat-header-content h2 {
-                font-size: 14px;
-            }
-
-            .chat-header-content p {
-                font-size: 11px;
-            }
-
-            .message-group {
-                gap: 8px;
-            }
-
-            .message-avatar {
-                width: 32px;
-                height: 32px;
-                font-size: 13px;
-            }
-
-            .message-text {
-                font-size: 12px;
-                padding: 10px 12px;
-            }
-
-            .card-message {
-                padding: 12px;
-            }
-
-            .card-title {
-                font-size: 13px;
-            }
-
-            .card-content {
-                font-size: 12px;
+            .hero-vertical {
+                display: none;
             }
         }
 
-        @media (max-width: 480px) {
-            html, body {
-                height: auto;
-                overflow: auto;
+        @media (max-width: 640px) {
+            body {
+                line-height: 1.85;
             }
 
-            .container {
-                flex-direction: column;
-                height: auto;
+            .nav-inner {
+                height: 60px;
             }
 
-            .main-content {
-                flex-direction: column;
+            .nav-links {
+                gap: 14px;
             }
 
-            .sidebar {
-                width: 100%;
-                height: auto;
-                border-right: none;
-                border-bottom: 1px solid var(--gray-200);
-                padding: 0;
-                display: flex;
-                flex-direction: row;
-                overflow-x: auto;
-                overflow-y: hidden;
-                flex-wrap: nowrap;
-            }
-
-            .sidebar-search {
-                display: none;
-            }
-
-            .sidebar-section-title {
-                display: none;
-            }
-
-            .sidebar-list {
-                display: flex;
-                flex-direction: row;
-                gap: 0;
-                width: 100%;
-            }
-
-            .sidebar-item {
-                padding: 12px 12px;
-                margin: 0;
-                border-radius: 0;
-                flex-shrink: 0;
-                font-size: 12px;
-                white-space: nowrap;
-                border-bottom: 3px solid transparent;
-            }
-
-            .sidebar-item:hover {
-                background: transparent;
-                border-bottom-color: var(--primary-blue);
-            }
-
-            .sidebar-item.active {
-                background: transparent;
-                border-bottom-color: var(--primary-blue);
-            }
-
-            .sidebar-icon {
-                display: none;
-            }
-
-            .header {
-                padding: 8px 12px;
-            }
-
-            .logo {
-                width: 28px;
-                height: 28px;
-                font-size: 14px;
-            }
-
-            .title {
-                font-size: 13px;
-            }
-
-            .chat-area {
-                width: 100%;
-            }
-
-            .chat-header {
-                padding: 8px 12px;
-                gap: 8px;
-            }
-
-            .chat-header-icon {
-                width: 30px;
-                height: 30px;
-                font-size: 16px;
-            }
-
-            .chat-header-content h2 {
-                font-size: 13px;
-                margin: 0;
-            }
-
-            .chat-header-content p {
+            .nav-links a {
                 font-size: 10px;
-                margin: 2px 0 0 0;
+                letter-spacing: 0.12em;
             }
 
-            .chat-messages {
-                padding: 12px 12px;
-                gap: 12px;
-            }
-
-            .message-group {
-                gap: 6px;
-                margin-bottom: 4px;
-            }
-
-            .message-avatar {
-                width: 28px;
-                height: 28px;
-                font-size: 12px;
-                border-radius: 4px;
-            }
-
-            .message-header {
-                gap: 6px;
-            }
-
-            .message-author {
-                font-size: 12px;
-            }
-
-            .message-time {
-                font-size: 10px;
-            }
-
-            .message-text {
-                font-size: 12px;
-                padding: 8px 10px;
-                border-radius: 6px;
-            }
-
-            .typing-indicator {
-                font-size: 12px;
-                padding: 8px 10px;
-                gap: 3px;
-            }
-
-            .typing-indicator-dot {
-                width: 5px;
-                height: 5px;
-            }
-
-            .card-message {
-                padding: 10px;
-                border-radius: 6px;
-            }
-
-            .card-title {
-                font-size: 12px;
-                margin-bottom: 6px;
-            }
-
-            .card-subtitle {
-                font-size: 11px;
-                margin-bottom: 8px;
-            }
-
-            .card-content {
-                font-size: 11px;
-                margin-bottom: 8px;
-            }
-
-            .card-tags {
-                gap: 4px;
-                margin-bottom: 8px;
-            }
-
-            .tag {
-                padding: 2px 8px;
-                font-size: 10px;
-            }
-
-            .card-link {
-                font-size: 12px;
-                gap: 4px;
-            }
-
-            .skill-grid {
+            .profile-grid {
                 grid-template-columns: 1fr;
-                gap: 8px;
             }
 
-            .skill-box {
-                padding: 10px;
-                border-radius: 6px;
+            .skills-grid {
+                grid-template-columns: 1fr;
+                row-gap: 36px;
             }
 
-            .skill-category-title {
-                font-size: 11px;
-                margin-bottom: 6px;
+            .skill-col + .skill-col {
+                border-left: none;
+                padding-left: 0;
             }
 
-            .skill-item {
-                padding: 3px 0;
-                font-size: 12px;
+            .project-row {
+                grid-template-columns: 1fr;
                 gap: 4px;
             }
 
-            .footer {
-                padding: 8px 12px;
-                font-size: 10px;
+            .project-row .arrow {
+                position: absolute;
+                top: clamp(28px, 4.5vh, 44px);
+                right: 0;
+            }
+
+            .profile-facts div {
+                grid-template-columns: 110px 1fr;
+            }
+
+            .section-head .label {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- ヘッダー -->
-        <div class="header">
-            <div class="logo">YA</div>
-            <div class="title">YANAi Taketo - Portfolio</div>
+    <!-- ナビ -->
+    <nav class="nav" id="nav">
+        <div class="wrap nav-inner">
+            <a class="nav-name" href="#top">柳井 建人</a>
+            <ul class="nav-links">
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
+    </nav>
 
-        <div class="main-content">
-            <!-- サイドバー -->
-            <div class="sidebar">
-                <div class="sidebar-search">
-                    <input type="text" class="search-box" placeholder="検索...">
-                </div>
-
-                <div class="sidebar-section-title">セクション</div>
-                <ul class="sidebar-list">
-                    <li class="sidebar-item active" data-section="profile">
-                        <span class="sidebar-icon">👤</span>
-                        <span>プロフィール</span>
-                    </li>
-                    <li class="sidebar-item" data-section="skills">
-                        <span class="sidebar-icon">💡</span>
-                        <span>スキル</span>
-                    </li>
-                    <li class="sidebar-item" data-section="projects">
-                        <span class="sidebar-icon">🚀</span>
-                        <span>プロジェクト</span>
-                    </li>
-                    <li class="sidebar-item" data-section="contact">
-                        <span class="sidebar-icon">✉️</span>
-                        <span>お問い合わせ</span>
-                    </li>
-                </ul>
+    <!-- ヒーロー -->
+    <header class="hero" id="top">
+        <div class="wrap hero-content">
+            <div class="hero-meta reveal in">
+                <span class="label">Portfolio</span>
+                <span class="rule"></span>
+                <span class="label">ta-yan.ai</span>
             </div>
+            <h1 class="reveal in">柳井 建人</h1>
+            <div class="hero-en reveal in">Taketo Yanai <span class="accent">—</span> Software Engineer, Yamaguchi Japan</div>
+            <p class="hero-lead reveal in">
+                システム開発とウェブ技術に関心を持ち、常に最新の技術トレンドをキャッチアップしながら、実務経験を活かした質の高いソリューションを提供することを目指しています。
+            </p>
+            <div class="hero-vertical">ソフトウェア エンジニア</div>
+        </div>
+        <div class="wrap hero-scroll">
+            <span class="line"></span>
+            <span class="label">Scroll</span>
+        </div>
+    </header>
 
-            <!-- チャットエリア -->
-            <div class="chat-area">
-                <!-- プロフィール -->
-                <div class="chat-pane active" id="profile">
-                    <div class="chat-header">
-                        <div class="chat-header-icon">👤</div>
-                        <div class="chat-header-content">
-                            <h2>プロフィール</h2>
-                            <p>自己紹介</p>
-                        </div>
-                    </div>
-                    <div class="chat-messages">
-                        <div class="message-group">
-                            <div class="message-avatar">YT</div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-author">YANAI Taketo</span>
-                                    <span class="message-time">13:45</span>
-                                </div>
-                                <div class="message-text">
-                                    <strong>柳井 建人</strong><br>
-                                    ソフトウェアエンジニア
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="message-group">
-                            <div class="message-avatar">YT</div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-author">YANAI Taketo</span>
-                                    <span class="message-time">13:46</span>
-                                </div>
-                                <div class="message-text">
-                                    山口県のシステムエンジニアです。様々な技術を勉強中です。<br><br>
-                                    ウェブサイト：<a href="https://www.ta-yan.ai/" target="_blank">YANAi Taketo - Portfolio</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="message-group">
-                            <div class="message-avatar">YT</div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-author">YANAI Taketo</span>
-                                    <span class="message-time">13:47</span>
-                                </div>
-                                <div class="message-text">
-                                    システム開発とウェブ技術に関心を持ち、常に最新の技術トレンドをキャッチアップしながら、実務経験を活かした質の高いソリューションを提供することを目指しています。
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <main>
+        <!-- プロフィール -->
+        <section id="profile">
+            <div class="wrap">
+                <div class="section-head reveal">
+                    <span class="num">01</span>
+                    <h2>プロフィール</h2>
+                    <span class="label">Profile</span>
                 </div>
-
-                <!-- スキル -->
-                <div class="chat-pane" id="skills">
-                    <div class="chat-header">
-                        <div class="chat-header-icon">💡</div>
-                        <div class="chat-header-content">
-                            <h2>スキル</h2>
-                            <p>保有スキルと技術</p>
-                        </div>
+                <div class="profile-grid">
+                    <div class="profile-side reveal">
+                        困っている人の<br>「それ欲しかった」を作りたい
+                        <small>Yanai Taketo</small>
                     </div>
-                    <div class="chat-messages">
-                        <div class="message-group">
-                            <div class="message-avatar">YA</div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-author">技術スキル</span>
-                                    <span class="message-time">14:00</span>
-                                </div>
-                                <div class="skill-grid">
-                                    <div class="skill-box">
-                                        <div class="skill-category-title">プログラミング言語</div>
-                                        <ul class="skill-list">
-                                            <li class="skill-item">C</li>
-                                            <li class="skill-item">C#</li>
-                                            <li class="skill-item">VB.net</li>
-                                            <li class="skill-item">Golang</li>
-                                            <li class="skill-item">Python</li>
-                                            <li class="skill-item">JavaScript</li>
-                                        </ul>
-                                    </div>
-                                    <div class="skill-box">
-                                        <div class="skill-category-title">データベース</div>
-                                        <ul class="skill-list">
-                                            <li class="skill-item">SQL Server</li>
-                                            <li class="skill-item">Oracle</li>
-                                            <li class="skill-item">MySQL</li>
-                                            <li class="skill-item">PostgreSQL</li>
-                                        </ul>
-                                    </div>
-                                    <div class="skill-box">
-                                        <div class="skill-category-title">開発ツール</div>
-                                        <ul class="skill-list">
-                                            <li class="skill-item">Git &amp; GitHub</li>
-                                            <li class="skill-item">Visual Studio</li>
-                                            <li class="skill-item">VS Code</li>
-                                            <li class="skill-item">Docker</li>
-                                        </ul>
-                                    </div>
-                                    <div class="skill-box">
-                                        <div class="skill-category-title">ウェブ技術</div>
-                                        <ul class="skill-list">
-                                            <li class="skill-item">HTML/CSS</li>
-                                            <li class="skill-item">React</li>
-                                            <li class="skill-item">Node.js</li>
-                                            <li class="skill-item">WordPress</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                    <div class="profile-body reveal">
+                        <p>山口県のシステムエンジニアです。様々な技術を勉強中です。</p>
+                        <p>システム開発とウェブ技術に関心を持ち、常に最新の技術トレンドをキャッチアップしながら、実務経験を活かした質の高いソリューションを提供することを目指しています。</p>
+                        <dl class="profile-facts">
+                            <div>
+                                <dt>Name</dt>
+                                <dd>柳井 建人（YANAI Taketo）</dd>
                             </div>
-                        </div>
+                            <div>
+                                <dt>Role</dt>
+                                <dd>ソフトウェアエンジニア</dd>
+                            </div>
+                            <div>
+                                <dt>Location</dt>
+                                <dd>山口県</dd>
+                            </div>
+                            <div>
+                                <dt>Web</dt>
+                                <dd><a href="https://www.ta-yan.ai/">www.ta-yan.ai</a></dd>
+                            </div>
+                            <div>
+                                <dt>GitHub</dt>
+                                <dd><a href="https://github.com/Yanai-Taketo" target="_blank" rel="noopener">github.com/Yanai-Taketo</a></dd>
+                            </div>
+                        </dl>
                     </div>
-                </div>
-
-                <!-- プロジェクト -->
-                <div class="chat-pane" id="projects">
-                    <div class="chat-header">
-                        <div class="chat-header-icon">🚀</div>
-                        <div class="chat-header-content">
-                            <h2>プロジェクト</h2>
-                            <p>完成・進行中のプロジェクト</p>
-                        </div>
-                    </div>
-                    <div class="chat-messages">
-                        <div class="message-group">
-                            <div class="message-avatar">YA</div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-author">テックろぐ</span>
-                                    <span class="message-time">14:15</span>
-                                </div>
-                                <div class="card-message">
-                                    <div class="card-title">📝 テックろぐ</div>
-                                    <div class="card-subtitle">2022年 • WordPress</div>
-                                    <div class="card-content">
-                                        技術情報やナレッジを共有するための個人ブログ。最新のプログラミングトレンドやマイクロソフト技術に関する投稿を掲載しています。
-                                    </div>
-                                    <div class="card-tags">
-                                        <span class="tag">WordPress</span>
-                                        <span class="tag">PHP</span>
-                                        <span class="tag">MySQL</span>
-                                    </div>
-                                    <a href="https://techlog.ta-yan.ai/" target="_blank" class="card-link">
-                                        プロジェクトを見る →
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="message-group">
-                            <div class="message-avatar">YA</div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-author">OraDB DUMP Viewer</span>
-                                    <span class="message-time">14:16</span>
-                                </div>
-                                <div class="card-message">
-                                    <div class="card-title">🗄️ OraDB DUMP Viewer</div>
-                                    <div class="card-subtitle">2025年 • C# × .NET × WPF</div>
-                                    <div class="card-content">
-                                        Oracle データベースのエクスポートファイル（DUMPファイル）を Oracle 未導入の環境で閲覧・検索・エクスポートできる Windows デスクトップアプリケーション。
-                                    </div>
-                                    <div class="card-tags">
-                                        <span class="tag">C#</span>
-                                        <span class="tag">.NET</span>
-                                        <span class="tag">WPF</span>
-                                    </div>
-                                    <a href="https://odv.dev" target="_blank" class="card-link">
-                                        プロジェクトを見る →
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="message-group">
-                            <div class="message-avatar">YA</div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-author">NTPilot</span>
-                                    <span class="message-time">14:17</span>
-                                </div>
-                                <div class="card-message">
-                                    <div class="card-title">🕐 NTPilot</div>
-                                    <div class="card-subtitle">2025年 • VB.NET × .NET Framework × WinForms</div>
-                                    <div class="card-content">
-                                        Windows の時刻同期サービス（W32Time）を管理するための軽量な GUI ツール。ステータス確認、NTP サーバー設定、ダーク/ライトモード対応、10言語の多言語対応など。
-                                    </div>
-                                    <div class="card-tags">
-                                        <span class="tag">VB.NET</span>
-                                        <span class="tag">.NET Framework</span>
-                                        <span class="tag">WinForms</span>
-                                    </div>
-                                    <a href="https://github.com/Yanai-Taketo/NTPilot" target="_blank" class="card-link">
-                                        プロジェクトを見る →
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- お問い合わせ -->
-                <div class="chat-pane" id="contact">
-                    <div class="chat-header">
-                        <div class="chat-header-icon">✉️</div>
-                        <div class="chat-header-content">
-                            <h2>お問い合わせ</h2>
-                            <p>連絡先情報</p>
-                        </div>
-                    </div>
-                    <div class="chat-messages">
-                        <div class="message-group">
-                            <div class="message-avatar">YA</div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-author">YANAI Taketo</span>
-                                    <span class="message-time">14:30</span>
-                                </div>
-                                <div class="message-text">
-                                    ご質問、ご提案、またはお仕事のご依頼など、以下の連絡先までお気軽にお問い合わせください。
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="message-group">
-                            <div class="message-avatar">YA</div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-author">メールアドレス</span>
-                                    <span class="message-time">14:31</span>
-                                </div>
-                                <div class="card-message">
-                                    <div class="card-title">📬 Email</div>
-                                    <a href="mailto:inquiry@ta-yan.ai" class="card-link">
-                                        inquiry@ta-yan.ai
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="message-group">
-                            <div class="message-avatar">YA</div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-author">ウェブサイト</span>
-                                    <span class="message-time">14:32</span>
-                                </div>
-                                <div class="card-message">
-                                    <div class="card-title">🌐 Web</div>
-                                    <a href="https://www.ta-yan.ai/" target="_blank" class="card-link">
-                                        https://www.ta-yan.ai/
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="message-group">
-                            <div class="message-avatar">YA</div>
-                            <div class="message-content">
-                                <div class="message-header">
-                                    <span class="message-author">所在地</span>
-                                    <span class="message-time">14:33</span>
-                                </div>
-                                <div class="message-text">
-                                    📍 山口県
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- フッター -->
-                <div class="footer">
-                    © 2025 YANAi Taketo. All rights reserved.
                 </div>
             </div>
+        </section>
+
+        <!-- スキル -->
+        <section id="skills">
+            <div class="wrap">
+                <div class="section-head reveal">
+                    <span class="num">02</span>
+                    <h2>スキル</h2>
+                    <span class="label">Skills</span>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-col reveal">
+                        <span class="num">a.</span>
+                        <h3>業務システム開発</h3>
+                        <ul>
+                            <li>C#</li>
+                            <li>VB.NET</li>
+                            <li>.NET / .NET Framework</li>
+                            <li>WPF</li>
+                            <li>WinForms</li>
+                            <li>C</li>
+                        </ul>
+                    </div>
+                    <div class="skill-col reveal">
+                        <span class="num">b.</span>
+                        <h3>データベース</h3>
+                        <ul>
+                            <li>SQL Server</li>
+                            <li>Oracle</li>
+                            <li>MySQL</li>
+                            <li>PostgreSQL</li>
+                        </ul>
+                    </div>
+                    <div class="skill-col reveal">
+                        <span class="num">c.</span>
+                        <h3>ウェブ開発</h3>
+                        <ul>
+                            <li>JavaScript</li>
+                            <li>React</li>
+                            <li>Node.js</li>
+                            <li>PHP</li>
+                            <li>WordPress</li>
+                        </ul>
+                    </div>
+                    <div class="skill-col reveal">
+                        <span class="num">d.</span>
+                        <h3>インフラ・ネットワーク</h3>
+                        <ul>
+                            <li>Proxmox VE</li>
+                            <li>Docker</li>
+                            <li>WireGuard</li>
+                            <li>Tailscale</li>
+                            <li>Linux</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- プロジェクト -->
+        <section id="projects">
+            <div class="wrap">
+                <div class="section-head reveal">
+                    <span class="num">03</span>
+                    <h2>プロジェクト</h2>
+                    <span class="label">Projects</span>
+                </div>
+                <div class="project-list">
+                    <a class="project-row reveal" href="https://techlog.ta-yan.ai/" target="_blank" rel="noopener">
+                        <span class="year">2022</span>
+                        <div>
+                            <h3>テックろぐ</h3>
+                            <p>技術情報やナレッジを共有するための個人ブログ。最新のプログラミングトレンドやマイクロソフト技術に関する投稿を掲載しています。</p>
+                            <div class="tech">WordPress / PHP / MySQL</div>
+                        </div>
+                        <span class="arrow">↗</span>
+                    </a>
+                    <a class="project-row reveal" href="https://odv.dev" target="_blank" rel="noopener">
+                        <span class="year">2025</span>
+                        <div>
+                            <h3>OraDB DUMP Viewer</h3>
+                            <p>Oracle データベースのエクスポートファイル（DUMPファイル）を Oracle 未導入の環境で閲覧・検索・エクスポートできる Windows デスクトップアプリケーション。</p>
+                            <div class="tech">C# / .NET / WPF</div>
+                        </div>
+                        <span class="arrow">↗</span>
+                    </a>
+                    <a class="project-row reveal" href="https://github.com/Yanai-Taketo/NTPilot" target="_blank" rel="noopener">
+                        <span class="year">2025</span>
+                        <div>
+                            <h3>NTPilot</h3>
+                            <p>Windows の時刻同期サービス（W32Time）を管理するための軽量な GUI ツール。ステータス確認、NTP サーバー設定、ダーク/ライトモード対応、多言語対応など。</p>
+                            <div class="tech">VB.NET / .NET Framework / WinForms</div>
+                        </div>
+                        <span class="arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- コンタクト -->
+        <section id="contact">
+            <div class="wrap">
+                <div class="section-head reveal">
+                    <span class="num">04</span>
+                    <h2>お問い合わせ</h2>
+                    <span class="label">Contact</span>
+                </div>
+                <p class="contact-lead reveal">
+                    ご質問、ご提案、またはお仕事のご依頼など、お気軽にお問い合わせください。
+                </p>
+                <a class="contact-mail reveal" href="mailto:inquiry@ta-yan.ai">inquiry@ta-yan.ai</a>
+                <div class="contact-sub reveal">
+                    <a href="https://github.com/Yanai-Taketo" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://x.com/YANAITaketo" target="_blank" rel="noopener">X (Twitter)</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="wrap footer-inner">
+            <span>© <span id="year">2025</span> YANAi Taketo. All rights reserved.</span>
+            <span>Yamaguchi, Japan</span>
         </div>
-    </div>
+    </footer>
 
     <script>
-        // ナビゲーション機能
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarItems = document.querySelectorAll('.sidebar-item');
-            const chatPanes = document.querySelectorAll('.chat-pane');
+        document.addEventListener('DOMContentLoaded', function () {
+            // フッターの年
+            document.getElementById('year').textContent = new Date().getFullYear();
 
-            // タイピングインジケーターを挿入する関数
-            function injectTypingIndicators(pane) {
-                const messageGroups = pane.querySelectorAll('.message-group');
-                messageGroups.forEach((group, index) => {
-                    // 既に処理済みの場合はスキップ
-                    if (group.dataset.typingProcessed) {
-                        return;
-                    }
-                    group.dataset.typingProcessed = 'true';
+            // スクロールでナビに罫線
+            const nav = document.getElementById('nav');
+            const onScroll = function () {
+                nav.classList.toggle('scrolled', window.scrollY > 8);
+            };
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
 
-                    const messageContent = group.querySelector('.message-content');
-                    if (messageContent) {
-                        // メッセージテキストまたはカードメッセージを非表示にする
-                        const messageText = messageContent.querySelector('.message-text');
-                        const cardMessage = messageContent.querySelector('.card-message');
-                        
-                        if (messageText || cardMessage) {
-                            // タイピング中インジケーターを作成
-                            const typingDiv = document.createElement('div');
-                            typingDiv.className = 'typing-indicator';
-                            typingDiv.innerHTML = 'タイピング中<span class="typing-indicator-dot"></span><span class="typing-indicator-dot"></span><span class="typing-indicator-dot"></span>';
-                            
-                            // メッセージやカードの後に挿入
-                            if (messageText) {
-                                messageText.parentNode.insertBefore(typingDiv, messageText);
-                            } else if (cardMessage) {
-                                cardMessage.parentNode.insertBefore(typingDiv, cardMessage);
-                            }
-
-                            // タイピング中を短時間表示してからメッセージを表示
-                            const typingDuration = 200 + (index * 120);
-                            setTimeout(() => {
-                                // タイピング中をフェードアウト開始
-                                typingDiv.classList.add('fade-out');
-
-                                // 少し遅延してからメッセージをフェードイン
-                                setTimeout(() => {
-                                    if (messageText) {
-                                        messageText.classList.add('visible');
-                                    }
-                                    if (cardMessage) {
-                                        cardMessage.classList.add('visible');
-                                    }
-                                }, 100);
-
-                                // タイピング中を削除
-                                setTimeout(() => {
-                                    typingDiv.remove();
-                                }, 300);
-                            }, 800 + typingDuration);
+            // リビール
+            const reveals = document.querySelectorAll('.reveal:not(.in)');
+            if ('IntersectionObserver' in window) {
+                const io = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in');
+                            io.unobserve(entry.target);
                         }
-                    }
-                });
+                    });
+                }, { threshold: 0.1 });
+                reveals.forEach(function (el) { io.observe(el); });
+            } else {
+                reveals.forEach(function (el) { el.classList.add('in'); });
             }
 
-            sidebarItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const section = this.dataset.section;
-
-                    // アクティブクラスを更新
-                    sidebarItems.forEach(si => si.classList.remove('active'));
-                    this.classList.add('active');
-
-                    // チャットペインを更新
-                    chatPanes.forEach(pane => {
-                        pane.classList.remove('active');
-                        // 古い処理情報をクリアする
-                        pane.querySelectorAll('.message-group').forEach(group => {
-                            delete group.dataset.typingProcessed;
-                            
-                            // タイピング中インジケーターを削除
-                            const typingIndicator = group.querySelector('.typing-indicator');
-                            if (typingIndicator) {
-                                typingIndicator.remove();
-                            }
-                            
-                            // メッセージ要素の表示状態をリセット
-                            const messageText = group.querySelector('.message-text');
-                            const cardMessage = group.querySelector('.card-message');
-                            if (messageText) {
-                                messageText.classList.remove('visible');
-                            }
-                            if (cardMessage) {
-                                cardMessage.classList.remove('visible');
-                            }
+            // ナビの現在地
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const sectionIO = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(function (link) {
+                            link.classList.toggle('active', entry.target.id !== 'top' && link.getAttribute('href') === '#' + entry.target.id);
                         });
-                    });
-
-                    const targetPane = document.getElementById(section);
-                    if (targetPane) {
-                        targetPane.classList.add('active');
-                        // スクロール位置をリセット
-                        const messagesArea = targetPane.querySelector('.chat-messages');
-                        if (messagesArea) {
-                            messagesArea.scrollTop = 0;
-                        }
-
-                        // タイピングインジケーターを挿入
-                        injectTypingIndicators(targetPane);
                     }
                 });
+            }, { rootMargin: '-30% 0px -60% 0px' });
+            ['top', 'profile', 'skills', 'projects', 'contact'].forEach(function (id) {
+                const sec = document.getElementById(id);
+                if (sec) sectionIO.observe(sec);
             });
 
-            // ページ読み込み時に、デフォルトのアクティブセクションにもタイピングインジケーターを挿入
-            const activePane = document.querySelector('.chat-pane.active');
-            if (activePane) {
-                setTimeout(() => {
-                    injectTypingIndicators(activePane);
-                }, 100);
+            // URLハッシュでセクション指定して開けるように
+            if (location.hash) {
+                const target = document.querySelector(location.hash);
+                if (target) {
+                    setTimeout(function () {
+                        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+                    }, 50);
+                }
             }
         });
     </script>
