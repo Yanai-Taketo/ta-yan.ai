@@ -939,6 +939,8 @@
       background-image: radial-gradient(circle at 50% 15px, var(--paper) 3px, rgba(110, 108, 100, 0.65) 3.5px, transparent 4.5px);
     }
     .job-head { flex-direction: column; gap: 2px; }
+    /* tighter tracking keeps the longer project URLs to two lines here */
+    .job .jump { font-size: 11px; letter-spacing: 0.04em; }
     /* the tilt swings the corners of a full-width, very tall card ~12px out
        each side on a phone, where the section's clip shaves them off */
     .pass { flex-direction: column; transform: rotate(-0.5deg); }
@@ -1167,7 +1169,7 @@
               <h3><a href="https://techlog.ta-yan.ai/" target="_blank" rel="noopener">テックろぐ</a></h3>
               <p class="desc">技術情報やナレッジを共有するための個人ブログ。最新のプログラミングトレンドやマイクロソフト技術に関する投稿を掲載しています。</p>
               <div class="tech">TECH: WordPress / PHP / MySQL</div>
-              <a class="jump" href="https://techlog.ta-yan.ai/" target="_blank" rel="noopener">techlog.ta-yan.ai →</a>
+              <a class="jump" href="https://techlog.ta-yan.ai/" target="_blank" rel="noopener">techlog.ta-yan.ai&nbsp;→</a>
             </article>
 
             <article class="job">
@@ -1178,7 +1180,7 @@
               <h3><a href="https://odv.dev" target="_blank" rel="noopener">OraDB DUMP Viewer</a></h3>
               <p class="desc">Oracle データベースのエクスポートファイル（DUMPファイル）を Oracle 未導入の環境で閲覧・検索・エクスポートできる Windows デスクトップアプリケーション。</p>
               <div class="tech">TECH: C# / .NET / WPF</div>
-              <a class="jump" href="https://odv.dev" target="_blank" rel="noopener">odv.dev →</a>
+              <a class="jump" href="https://odv.dev" target="_blank" rel="noopener">odv.dev&nbsp;→</a>
             </article>
 
             <article class="job">
@@ -1189,18 +1191,51 @@
               <h3><a href="https://github.com/Yanai-Taketo/NTPilot" target="_blank" rel="noopener">NTPilot</a></h3>
               <p class="desc">Windows の時刻同期サービス（W32Time）を管理するための軽量な GUI ツール。ステータス確認、NTP サーバー設定、ダーク/ライトモード対応、多言語対応など。</p>
               <div class="tech">TECH: VB.NET / .NET Framework / WinForms</div>
-              <a class="jump" href="https://github.com/Yanai-Taketo/NTPilot" target="_blank" rel="noopener">github.com/Yanai-Taketo/NTPilot →</a>
+              <a class="jump" href="https://github.com/Yanai-Taketo/NTPilot" target="_blank" rel="noopener">github.com/Yanai-Taketo/NTPilot&nbsp;→</a>
             </article>
 
             <article class="job">
               <div class="job-head">
                 <span>JOB 0004</span>
-                <span>DATE: 2026 / STATUS: IN DEVELOPMENT</span>
+                <span>DATE: 2026 / STATUS: RELEASED</span>
               </div>
-              <h3><a href="https://yagura.ta-yan.ai" target="_blank" rel="noopener">Yagura</a> <span class="wip">開発中</span></h3>
+              <h3><a href="https://yagura.ta-yan.ai" target="_blank" rel="noopener">Yagura</a></h3>
               <p class="desc">Windows に syslog サーバを手軽に構築できるオープンソースツール。ログの受信・保存・閲覧・通知に特化し、TLS 受信や Active Directory 認証、組み込み DB から SQL Server への切り替えに対応予定。</p>
               <div class="tech">TECH: C# / .NET / SQL Server</div>
-              <a class="jump" href="https://github.com/Yanai-Taketo/Yagura" target="_blank" rel="noopener">github.com/Yanai-Taketo/Yagura →</a>
+              <a class="jump" href="https://github.com/Yanai-Taketo/Yagura" target="_blank" rel="noopener">github.com/Yanai-Taketo/Yagura&nbsp;→</a>
+            </article>
+
+            <article class="job">
+              <div class="job-head">
+                <span>JOB 0005</span>
+                <span>DATE: 2026 / STATUS: RELEASED</span>
+              </div>
+              <h3><a href="https://crane-simulator.pages.ta-yanai.com/" target="_blank" rel="noopener">天井クレーン シミュレーター</a></h3>
+              <p class="desc">天井クレーンの操作をブラウザ上で練習できる 3D シミュレーター。自由練習・運搬課題・運転士試験・技能講習の各モードを備え、弾性ワイヤロープを連成したニュートン力学モデルを RK4 法・720Hz で解いて荷振れを再現します。</p>
+              <div class="tech">TECH: JavaScript / Three.js / WebGL</div>
+              <a class="jump" href="https://crane-simulator.pages.ta-yanai.com/" target="_blank" rel="noopener">crane-simulator.pages.ta-yanai.com&nbsp;→</a>
+            </article>
+
+            <article class="job">
+              <div class="job-head">
+                <span>JOB 0006</span>
+                <span>DATE: 2026 / STATUS: RELEASED</span>
+              </div>
+              <h3><a href="https://emergency-warning-system.pages.ta-yanai.com/" target="_blank" rel="noopener">緊急警報放送信号ツール</a></h3>
+              <p class="desc">緊急警報放送（EWS）の FSK 信号を生成・解析できる学習・検証用ツール。無線設備規則や郵政省告示第405号などの一次資料に基づいて実装し、Web Audio API によりブラウザ内で完結します。</p>
+              <div class="tech">TECH: JavaScript / Web Audio API</div>
+              <a class="jump" href="https://emergency-warning-system.pages.ta-yanai.com/" target="_blank" rel="noopener">emergency-warning-system.pages.ta-yanai.com&nbsp;→</a>
+            </article>
+
+            <article class="job">
+              <div class="job-head">
+                <span>JOB 0007</span>
+                <span>DATE: 2026 / STATUS: RELEASED</span>
+              </div>
+              <h3><a href="https://mergers-of-japanese-municipalities.pages.ta-yanai.com/" target="_blank" rel="noopener">市区町村合併マップ</a></h3>
+              <p class="desc">平成の大合併を含む 1995 年以降の市区町村の統廃合を、地図上のタイムラインでたどれるビューア。総務省・国土交通省の一次情報をもとにした全 706 件の変更イベントを収録しています。</p>
+              <div class="tech">TECH: JavaScript / MapLibre GL JS / TopoJSON</div>
+              <a class="jump" href="https://mergers-of-japanese-municipalities.pages.ta-yanai.com/" target="_blank" rel="noopener">mergers-of-japanese-municipalities.pages.ta-yanai.com&nbsp;→</a>
             </article>
           </div>
           <div class="sprocket r" aria-hidden="true"></div>
